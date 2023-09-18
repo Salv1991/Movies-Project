@@ -1,0 +1,33 @@
+.movie-page-section {
+    background-color: red;
+    margin: auto;
+    max-width: 1600px;
+}
+
+.movie-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.left {
+    flex: 1;
+}
+
+.right {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie-title {
+    font-size: 3rem;
+}

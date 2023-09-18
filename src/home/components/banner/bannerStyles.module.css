@@ -1,0 +1,34 @@
+.banner-container{
+    width: 100%;
+    height: 700px;
+    margin-bottom: 100px;
+    background: linear-gradient(rgba(24, 24, 24, 0.849), rgba(235, 232, 234, 0)),url('/images/background-image-search2.webp');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner-input-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.banner-input-container h2 {
+    font-size: clamp(1.4rem, 2vw, 2rem);
+    color:white
+}
+
+.banner-input-container> .banner-input {
+    background-color: rgba(241, 238, 238, 0.829);
+    padding: 8px 20px;
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 1000px;
+    min-width: 80px;
+    border-radius: 8px;
+
+}
