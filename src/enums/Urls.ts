@@ -14,6 +14,7 @@ export enum Urls {
         NowPlayingSeries= `tv/on_the_air`,
         PopularAnimatedSeries= `discover/movie?include_adult=false&include_video=false&page=1&sort_by=popularity.desc&with_genres=16`,
         TrendingCelebrities= `trending/person/day`,
-        PopularCelebrities= `person/popular`
+        PopularCelebrities= `person/popular`,
+        SimilarMovies= `movie/667538/similar`
 }
 

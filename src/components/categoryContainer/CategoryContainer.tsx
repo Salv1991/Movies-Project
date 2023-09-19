@@ -2,18 +2,15 @@ import { useState } from "react";
 import Category from "../category/Category";
 import categoryStyles from '../../styles/categoryStyles.module.css';
 import { Urls } from "../../enums/Urls";
-import { Link } from "react-router-dom";
 type CategoryContainerProps = {
     header: string;
     children: React.ReactNode;
-    path: string;
 }
-export const CategoryContainer = ({children, path, header,}:CategoryContainerProps) => {
+export const CategoryContainer = ({children, header,}:CategoryContainerProps) => {
     return(
         <div className={categoryStyles['category-container']}>
             <div  className={categoryStyles['header-container']}>
                 <h2>{header}</h2>
-                <Link to={path}>VIEW ALL</Link>
             </div>
             {children}
         </div>
@@ -36,10 +33,10 @@ export const ButtonsAndCategories = ({url1, url2, type1, type2}:ButtonsAndCatego
             </div>
             <div>  
                 {indexId===1 && 
-                    <Category  url={url1} type={type1} />      
+                    <Category  url={url1} linkType={type1} />      
                 }
                 {indexId===2 && 
-                    <Category url={url2} type={type2}  /> 
+                    <Category url={url2} linkType={type2}  /> 
                 }
                
             </div>
