@@ -26,20 +26,89 @@
     font-size: clamp(.9rem, 2vw, 1.2rem); 
 
 }
+.genres-list-section {
+    border-top: rgb(85, 85, 85) solid thin;
+    margin-top: 20px;
+    padding-top: 50px;
+    padding-inline: 60px;
+    max-height: 40%;
+
+}
+
+.genres-list-section button {
+    color: rgb(202, 201, 201);
+    font-weight:700;
+    letter-spacing: 2px;
+    font-size: clamp(.9rem, 2vw, 1.2rem); 
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    cursor: pointer;
+
+}
+
+.genres-list-section button svg {
+    width: 15px;
+    height: 15px;
+}
+.genres-list-container {
+    margin-top: 1rem;
+    overflow-y:scroll;
+    overflow-x: hidden;
+    max-height: 400px;
+}
+.genres-list-container::-webkit-scrollbar {
+    width: 1em;
+  }
+   
+  .genres-list-container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.0);
+  }
+   
+  .genres-list-container::-webkit-scrollbar-thumb {
+    background-color: rgb(48, 44, 44);
+    outline: 1px solid rgb(34, 3, 46);
+  }
+.genres-list {
+    width: 100%;
+    font-size: 1.1rem;  
+}
+
+.genre-li {
+    padding:8px 20px;
+}
+
+.genres-list h3 {
+    color: rgb(202, 201, 201);
+    font-weight:300;
+    letter-spacing: 2px;
+    font-size: clamp(.9rem, 2vw, 1.2rem); 
+}
 .sidebar-li:hover {
     background-color: rgb(53, 53, 53);
 }
 .page-content-with-sidebar{
     margin-left: 20%;
 }
-
+.content-page-header {
+    font-size: 5rem;
+    padding:30px 10px;
+    text-align: center;
+    color: rgb(228, 56, 113);
+    margin-bottom: -50px ;
+}
 .isActive {
     background: #6b1a6b60;
 }
-
+div.hidden {
+    display: none;
+}
 @media (width<900px){
     .sidebar-li {
-        padding:20px 20px;
+        padding:20px 10px;
+    }
+    .genres-list-section {
+        padding:20px 10px;
     }
 }
 

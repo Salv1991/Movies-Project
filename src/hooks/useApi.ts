@@ -26,7 +26,7 @@ export const useApi = (url:string) => {
     const [isLoaded, setIsLoaded] =  useState(false);
     const [error, setError] = useState(null);
     const  fetchData = async () => {
-        fetch(`https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
+        fetch(`https://api.themoviedb.org/3/${url}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
         .then(response => response.json())
         .then(fetchedData => {
             console.log(`https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)

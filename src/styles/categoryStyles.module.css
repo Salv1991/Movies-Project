@@ -86,7 +86,7 @@ font-weight: bold;
  
 .movies-container {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap:1rem;
     flex-wrap: wrap;
@@ -170,22 +170,22 @@ font-weight: bold;
 }
 
 
-@media (width<1000px){
+@media (width<1100px){
    
  
     .movie-container {
-        flex-basis: 30%;
+        flex-basis: 23%;
     }
 }
 
-@media (width<600px){
+@media (width<680px){
    
    
     .movie-container {
-        flex-basis: 45%;
+        flex-basis: 20%;
     }
 }
-@media (width<400px){
+@media (width<450px){
     .movies-container {
         flex-direction: column;
         gap:50px;

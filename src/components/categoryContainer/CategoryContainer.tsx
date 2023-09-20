@@ -1,7 +1,10 @@
 import { useState } from "react";
 import Category from "../category/Category";
 import categoryStyles from '../../styles/categoryStyles.module.css';
-import { Urls } from "../../enums/Urls";
+//ENUMS 
+import { CategoryType } from "../../enums/categoryType";
+import { Urls } from "../../enums/urls";
+
 type CategoryContainerProps = {
     header: string;
     children: React.ReactNode;
@@ -20,8 +23,8 @@ export const CategoryContainer = ({children, header,}:CategoryContainerProps) =>
 type ButtonsAndCategoriesProps ={
     url1: Urls;
     url2: Urls;
-    type1: string;
-    type2: string;
+    type1: CategoryType | "movie" | "series";
+    type2: CategoryType | "movie" | "series";
 }
 export const ButtonsAndCategories = ({url1, url2, type1, type2}:ButtonsAndCategoriesProps) => {
     const [indexId, setIndexId] = useState<number>(1);
@@ -33,10 +36,10 @@ export const ButtonsAndCategories = ({url1, url2, type1, type2}:ButtonsAndCatego
             </div>
             <div>  
                 {indexId===1 && 
-                    <Category  url={url1} linkType={type1} />      
+                    <Category  url={url1} categoryType={type1} />      
                 }
                 {indexId===2 && 
-                    <Category url={url2} linkType={type2}  /> 
+                    <Category url={url2} categoryType={type2}  /> 
                 }
                
             </div>
