@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StarIcon } from '@heroicons/react/20/solid';
 import categoryStyles from '../../styles/categoryStyles.module.css';
-import { Genres } from '../../enums/Genres';
+import { Genres } from '../../enums/genres';
 type MovieCategoryPreviewProps = {
   genre: Genres;
 }

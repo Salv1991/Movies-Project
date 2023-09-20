@@ -12,10 +12,10 @@ const Navbar = () => {
                     </div>
                 </Link>
                 <ul className={navbarStyles['navbar-ul']}>    
-                <NavLink to={'/series'} className={navbarStyles['navbar-li']}>
+                <NavLink to={'/browse'} className={navbarStyles['navbar-li']}>
                     <h2>BROWSE</h2>
                 </NavLink>
-                <NavLink to={'/series'} className={navbarStyles['navbar-li']}>
+                <NavLink to={'/movies'} className={navbarStyles['navbar-li']}>
                     <h2>MOVIES</h2>
                 </NavLink>
                 <NavLink to={'/series'}  className={navbarStyles['navbar-li']}>

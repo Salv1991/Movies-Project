@@ -1,6 +1,5 @@
-export enum CategoryTypeUrl{
+export enum CategoryType{
     Series= `series`,
-    TV = `tv`,
     Movie= `movie`,
     
 }
