@@ -8,6 +8,7 @@ import Home from "./home/Home";
 import Movie from "./pages/movie/Movie";
 //enums
 import { HomeCategories } from "./enums/HomeCategories";
+import { CategoryTypeUrl } from "./enums/CategoryTypeUrl";
 
 function App() {
   const[homeCategorySelected, setHomeCategorySelected]  = useState(HomeCategories.PlayingNow);
@@ -20,7 +21,9 @@ function App() {
           <Route path="/" element={<RootLayout />}>
             <Route index element={<Home setHomeCategorySelected={setHomeCategorySelected} homeCategorySelected={homeCategorySelected} />} />
 
-            <Route path="movie/:id" element={<Movie />} />
+            <Route path="movie/:id" element={<Movie mediaType={'movie'} linkType={CategoryTypeUrl.Movie}/>} />
+            <Route path="series/:id" element={<Movie mediaType={'tv'} linkType={CategoryTypeUrl.Series} />} />
+
           </Route>
         </Routes>
       </BrowserRouter> 

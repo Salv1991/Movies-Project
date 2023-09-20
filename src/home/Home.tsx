@@ -34,7 +34,7 @@ const Home = ({homeCategorySelected, setHomeCategorySelected}:HomeProps) => {
                     
                 </div>
                 {homeCategorySelected===HomeCategories.PlayingNow && 
-                    <CategoryContainer header='PLAYING NOW' path='/' >       
+                    <CategoryContainer header='PLAYING NOW'  >       
                         <ButtonsAndCategories 
                             url1= {Urls.NowPlayingMovies}
                             url2= {Urls.NowPlayingSeries}
@@ -45,7 +45,7 @@ const Home = ({homeCategorySelected, setHomeCategorySelected}:HomeProps) => {
                 } 
 
                 {homeCategorySelected===HomeCategories.TopRated && 
-                <CategoryContainer header='TOP RATED' path='/movies'>       
+                <CategoryContainer header='TOP RATED'>       
                     <ButtonsAndCategories 
                         url1= {Urls.MovieTopRated}
                         url2= {Urls.SeriesTopRated}
@@ -56,7 +56,7 @@ const Home = ({homeCategorySelected, setHomeCategorySelected}:HomeProps) => {
                 }
 
                 {homeCategorySelected===HomeCategories.Popular && 
-                <CategoryContainer header='POPULAR' path='/'>       
+                <CategoryContainer header='POPULAR' >       
                     <ButtonsAndCategories 
                         url1= {Urls.MoviePopular}
                         url2= {Urls.SeriesPopular}
