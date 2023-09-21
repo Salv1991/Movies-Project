@@ -15,6 +15,8 @@ export enum Urls {
         PopularAnimatedSeries= `discover/movie?include_adult=false&include_video=false&page=1&sort_by=popularity.desc&with_genres=16`,
         TrendingCelebrities= `trending/person/day?language=en-US`,
         PopularCelebrities= `person/popular?language=en-US`,
-        SimilarMovies= `movie/667538/similar?language=en-US`
+        SimilarMovies= `movie/667538/similar?language=en-US`,
+        AiringThisWeek= `tv/on_the_air?language=en-US`,
+
 }
 

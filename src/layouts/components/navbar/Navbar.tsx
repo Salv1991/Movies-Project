@@ -1,8 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
 import navbarStyles from './navbarStyles.module.css';
 import logo from '/images/logo.png';
-
-const Navbar = () => {
+import { Pages } from "../../../enums/pages";
+type NavbarProps = {
+    selectedPage: Pages;
+}
+const Navbar = ({selectedPage}:NavbarProps) => {
     return(
         <nav className={navbarStyles.navbar}>
             <div className={navbarStyles['navbar-container']}>
@@ -11,17 +14,17 @@ const Navbar = () => {
                         <img className={navbarStyles.logo} src={logo} alt="" />
                     </div>
                 </Link>
-                <ul className={navbarStyles['navbar-ul']}>    
-                <NavLink to={'/browse'} className={navbarStyles['navbar-li']}>
-                    <h2>BROWSE</h2>
-                </NavLink>
-                <NavLink to={'/movies'} className={navbarStyles['navbar-li']}>
-                    <h2>MOVIES</h2>
-                </NavLink>
-                <NavLink to={'/series'}  className={navbarStyles['navbar-li']}>
-                    <h2>TV SERIES</h2>
-                </NavLink>
-                </ul>
+                <div className={navbarStyles['links-container']}>    
+                    <NavLink to={'/browse'} className={`${navbarStyles['link']} ${selectedPage===Pages.Homepage? navbarStyles['selectedPage']: ''}`}>
+                        <h2>BROWSE</h2>
+                    </NavLink>
+                    <NavLink to={'/movies'} className={`${navbarStyles['link']} ${selectedPage===Pages.Movies? navbarStyles['selectedPage']: ''}`}>
+                        <h2>MOVIES</h2>
+                    </NavLink>
+                    <NavLink to={'/series'}  className={`${navbarStyles['link']} ${selectedPage===Pages.TVSeries? navbarStyles['selectedPage']: ''}`}>
+                        <h2>TV SERIES</h2>
+                    </NavLink>
+                </div>
             </div>
         </nav>   
     )

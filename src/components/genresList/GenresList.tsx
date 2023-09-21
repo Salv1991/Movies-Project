@@ -1,18 +1,14 @@
-import {useState, useEffect} from 'react';
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
 //ICONS
-import { ArrowDownIcon, ArrowUpIcon} from '@heroicons/react/20/solid';
+import { ArrowDownIcon, ArrowRightIcon} from '@heroicons/react/20/solid';
 //ENUMS
 import { SidebarCategories } from '../../enums/sidebarCategories';
-import { useApi } from '../../hooks/useApi';
-import { useGenreListApi } from '../../hooks/useGenreListApi';
-type Genre = {
-    id: number, 
-    name: string
-}
+
 type GenresListProps = {
-    type: 'movie' | 'tv' | string;
+    genresList: any;
+    isLoaded:boolean;
+    error: any;
     selectedGenreId: number;
     isClosed: boolean;
     sidebarCategorySelected: SidebarCategories;
@@ -21,27 +17,16 @@ type GenresListProps = {
     setSelectedGenreId: (value: number) => void;
     setSidebarCategorySelected: (value: SidebarCategories)=> void;
 }
-const GenresList = ({ type,  isClosed, setIsClosed, selectedGenreId, setSelectedGenreId, setSelectedGenreName, sidebarCategorySelected,setSidebarCategorySelected }:GenresListProps) => {
-     
-      const{ data:genresList, isLoaded, error} = useGenreListApi(type);
-      useEffect(() => {
-        if( type === 'tv') {
-            setSelectedGenreId(10759);
-            setSelectedGenreName('ACTION & ADVENTURE');
-        }
-        if( type ==='movie')  {
-            setSelectedGenreId(28);
-            setSelectedGenreName('ACTION');
-        }
-      },[type]);
+const GenresList = ({ genresList, isLoaded, error, isClosed, setIsClosed, selectedGenreId, setSelectedGenreId, setSelectedGenreName, sidebarCategorySelected,setSidebarCategorySelected }:GenresListProps) => {
+  
     return(
         <div className={sidebarStyles['genres-list-section']}>
             {isLoaded && !error && 
             <>
-            <button onClick={() => setIsClosed(!isClosed)}>Genres{!isClosed?<ArrowDownIcon/>:<ArrowUpIcon/>}</button>
+            <button onClick={() => setIsClosed(!isClosed)}>Genres{!isClosed?<ArrowDownIcon/>:<ArrowRightIcon/>}</button>
             <div className={` ${isClosed? sidebarStyles['hidden']: sidebarStyles['genres-list-container']}`}>
                 <ul className={` ${ isClosed? sidebarStyles['hidden'] :sidebarStyles['genres-list']} `}>
-                    {genresList.map((genre) => (
+                    {genresList.map((genre:{id:number, name:string}) => (
                         <li 
                             key={genre.id} 
                             onClick={() => {
