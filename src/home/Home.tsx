@@ -1,36 +1,38 @@
-import homeStyles from './homeStyles.module.css';
-import Banner from './components/banner/Banner';
+
 import { Urls } from '../enums/urls';
 import {CategoryContainer, ButtonsAndCategories} from '../components/categoryContainer/CategoryContainer';
-import SearchById from '../components/searchById/SearchById';
-import categoryStyles from '../styles/categoryStyles.module.css';
-import { Genres } from '../enums/genres';
-import { useState } from 'react';
 import sidebarStyles from '../styles/sideBarStyles.module.css';
-import Category from '../components/category/Category';
 //ENUMS
 import { SidebarCategories } from '../enums/sidebarCategories';
 import { CategoryType } from '../enums/categoryType'
+//HOOKS
+import Sidebar from '../components/sidebar/Sidebar';
+import { Pages } from '../enums/pages';
+import {useEffect} from 'react';
 type HomeProps= {
+    setSelectedPage:(value:Pages) => void;
     sidebarCategorySelected: SidebarCategories;    
     setSidebarCategorySelected: (value:SidebarCategories) => void;
+    isAboveMediumScreens: boolean;
 }
-const Home = ({sidebarCategorySelected, setSidebarCategorySelected}:HomeProps) => {
-    const [] = useState();
-    return(
+const Home = ({setSelectedPage, isAboveMediumScreens,sidebarCategorySelected, setSidebarCategorySelected}:HomeProps) => {
+    useEffect(()=> {
+        setSelectedPage(Pages.Homepage);
+        setSidebarCategorySelected(SidebarCategories.PlayingNow);
+    },[]);
 
-        
-        <section className={sidebarStyles['page-content-with-sidebar']}  >
+    return(
+        <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['repsonsive-content']}`}>
             <div className={sidebarStyles.content}>
-                <aside  className={sidebarStyles['sidebar-menu']}>
+                <Sidebar isAboveMediumScreens={isAboveMediumScreens}  >
                     <ul className={sidebarStyles['sidebar-ul']}>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected==='playing-now'?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='popular'?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='top-rated'?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Celebrities)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='celebrities'?sidebarStyles['isActive']:''}`}><h2>Celebrities</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected===SidebarCategories.PlayingNow?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Popular?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.TopRated?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Celebrities)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Celebrities?sidebarStyles['isActive']:''}`}><h2>Celebrities</h2></li>
                     </ul>
-                </aside>
-                
+                </Sidebar>
+
                 {sidebarCategorySelected===SidebarCategories.PlayingNow && 
                     <CategoryContainer header='PLAYING NOW'  >       
                         <ButtonsAndCategories 
@@ -41,7 +43,6 @@ const Home = ({sidebarCategorySelected, setSidebarCategorySelected}:HomeProps) =
                         />
                     </CategoryContainer>
                 } 
-
                 {sidebarCategorySelected===SidebarCategories.TopRated && 
                 <CategoryContainer header='TOP RATED'>       
                     <ButtonsAndCategories 

@@ -1,11 +1,15 @@
 .sidebar-menu {
     height: 100%;
     position: fixed;
-    left: 0;
+    left: 0px;
     top: 80px;
     width: 20%;
     background-color: rgb(31, 31, 31);
+    z-index: 100;
+    transition: all;
+    transition-duration: 400ms;
 }
+
 .sidebar-ul {
     margin-top: 100px;
     width: 100%;
@@ -14,7 +18,7 @@
 
 .sidebar-li {
     text-align: start;
-    padding:20px 60px;
+    padding:20px 40px;
     margin-bottom: 20px;
     margin: auto;
     cursor: pointer;
@@ -26,11 +30,12 @@
     font-size: clamp(.9rem, 2vw, 1.2rem); 
 
 }
+
 .genres-list-section {
     border-top: rgb(85, 85, 85) solid thin;
     margin-top: 20px;
     padding-top: 50px;
-    padding-inline: 60px;
+    padding-inline: 40px;
     max-height: 40%;
 
 }
@@ -52,13 +57,18 @@
     height: 15px;
 }
 .genres-list-container {
+    width:200px;
+    padding-right: 20px;
     margin-top: 1rem;
     overflow-y:scroll;
     overflow-x: hidden;
-    max-height: 400px;
+    max-height: 300px;
+    background-color: #b3045b11;
+    border-radius: 10px;
 }
 .genres-list-container::-webkit-scrollbar {
-    width: 1em;
+    width: .3em;
+
   }
    
   .genres-list-container::-webkit-scrollbar-track {
@@ -66,8 +76,8 @@
   }
    
   .genres-list-container::-webkit-scrollbar-thumb {
-    background-color: rgb(48, 44, 44);
-    outline: 1px solid rgb(34, 3, 46);
+    background: linear-gradient(90deg, #a501457e,#bb004e3a, #b4014c13);
+    outline: 1px solid rgb(29, 29, 29);
   }
 .genres-list {
     width: 100%;
@@ -76,8 +86,12 @@
 
 .genre-li {
     padding:8px 20px;
+    cursor: pointer;
 }
+.genre-li:hover {
+    background: linear-gradient(90deg, #75163e5d,#bb004e31, #b4014c00);
 
+}
 .genres-list h3 {
     color: rgb(202, 201, 201);
     font-weight:300;
@@ -86,29 +100,82 @@
 }
 .sidebar-li:hover {
     background-color: rgb(53, 53, 53);
+    background: linear-gradient(90deg, #75163e5d,#bb004e1c, #b4014c05);
 }
 .page-content-with-sidebar{
+    padding-top: 50px;
     margin-left: 20%;
+}
+.repsonsive-content{
+    margin-left: 0;
+    padding-top: 50px;
+
 }
 .content-page-header {
     font-size: 5rem;
     padding:30px 10px;
     text-align: center;
-    color: rgb(228, 56, 113);
+    color: #e43871;
     margin-bottom: -50px ;
+    
+}
+.content-page-header  {
+    font-size: 80px;
+    background: -webkit-linear-gradient(#9b0e50, #f50167);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.sidebar-hamburger-icon-container {
+    color: red;
+    position: fixed;
+    top: 90px;
+    left:10px;
+    width: 20px;
+    height: 20px;
+    z-index: 110;
 }
 .isActive {
-    background: #6b1a6b60;
+    background: linear-gradient(90deg, #b908527e,#f501673a, #f5016713);
 }
 div.hidden {
     display: none;
 }
-@media (width<900px){
-    .sidebar-li {
-        padding:20px 10px;
+@media (width<1700px){
+  
+    
+}
+
+
+@media (width<1300px){
+   
+    .page-content-with-sidebar{
+        margin-left: 25%;
     }
-    .genres-list-section {
-        padding:20px 10px;
+    .sidebar-menu {
+        width: 25%;
+
+    }
+}
+@media (width<800px){
+    
+    .page-content-with-sidebar{
+        margin-left: 25%;
+    }
+    .sidebar-menu {
+        width: 50%;
+
     }
 }
 
+@media (width<700px){
+    .sidebar-menu {
+        width: 50%;
+
+    }
+}
+@media (width<450px){
+    .sidebar-menu {
+        width: 100%;
+
+    }
+}

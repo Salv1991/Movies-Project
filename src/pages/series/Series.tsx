@@ -11,37 +11,46 @@ import { SidebarCategories } from '../../enums/sidebarCategories';
 import Category from '../../components/category/Category';
 import { CategoryContainer } from '../../components/categoryContainer/CategoryContainer';
 import GenresList from '../../components/genresList/GenresList';
-
-type Genre = {
-     id: number, 
-     name: string
-
-}
+import Sidebar from '../../components/sidebar/Sidebar';
+import { useGenreListApi } from '../../hooks/useGenreListApi';
+import { useEffect} from 'react';
+import { Pages } from '../../enums/pages';
+import { MediaType } from '../../enums/mediaType';
 type SeriesProps = {
+    setSelectedPage: (value:Pages) => void;
+    isAboveMediumScreens:boolean;
     sidebarCategorySelected: SidebarCategories;    
     setSidebarCategorySelected: (value:SidebarCategories) => void;
 }
-const Series = ({sidebarCategorySelected, setSidebarCategorySelected}:SeriesProps) => {
+const Series = ({setSelectedPage, isAboveMediumScreens, sidebarCategorySelected, setSidebarCategorySelected}:SeriesProps) => {
     const [isClosed, setIsClosed]  = useState<boolean>(false);
-    const [selectedGenreId, setSelectedGenreId] = useState<number>(28);
-    const [selectedGenreName, setSelectedGenreName] = useState<string>('Action');
-
+    const [selectedGenreId, setSelectedGenreId] = useState<number>(10759);
+    const [selectedGenreName, setSelectedGenreName] = useState<string>('ACTION & ADVENTURE');
+    const{ data:genresList, isLoaded, error} = useGenreListApi(MediaType.TV);
+    useEffect(() => {
+        setSelectedPage(Pages.TVSeries);
+        setSidebarCategorySelected(SidebarCategories.PlayingNow);
+        /* setSelectedGenreId(10759);
+        setSelectedGenreName('ACTION & ADVENTURE'); */
+    
+    },[]);
     
     return (
-        <section className={sidebarStyles['page-content-with-sidebar']}>
-            <div className={sidebarStyles.content}>
-
-            {/* SIDEBAR */}
-                <aside  className={sidebarStyles['sidebar-menu']}>
+        <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['repsonsive-content']}`}>
+        <div className={sidebarStyles.content}>
+            
+            <Sidebar isAboveMediumScreens={isAboveMediumScreens}  >
                     <ul className={sidebarStyles['sidebar-ul']}>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected==='playing-now'?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Upcoming)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='upcoming'?sidebarStyles['isActive']:''}`}><h2>Upcoming</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='popular'?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected==='top-rated'?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected===SidebarCategories.PlayingNow?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Upcoming)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Upcoming?sidebarStyles['isActive']:''}`}><h2>Airing this Week</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Popular?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
+                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.TopRated?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
                             
                     </ul>
                     <GenresList 
-                        type='tv'
+                        isLoaded={isLoaded}
+                        error={error}
+                        genresList={genresList}
                         selectedGenreId={selectedGenreId}
                         isClosed={isClosed} 
                         setIsClosed={setIsClosed} 
@@ -51,30 +60,30 @@ const Series = ({sidebarCategorySelected, setSidebarCategorySelected}:SeriesProp
                         setSidebarCategorySelected={setSidebarCategorySelected} 
                     />
                     
-                </aside>
+            </Sidebar>
 
             {/* MAIN CONTENT */}
                 <h1 className={sidebarStyles['content-page-header']}>TV SERIES</h1>
                 {sidebarCategorySelected===SidebarCategories.PlayingNow && 
                     <CategoryContainer header='PLAYING NOW'>
-                        <Category url={Urls.NowPlayingMovies} categoryType={CategoryType.Movie} />   
+                        <Category url={Urls.NowPlayingSeries} categoryType={CategoryType.Series} />   
                     </CategoryContainer>
                 } 
 
                 {sidebarCategorySelected===SidebarCategories.TopRated && 
                 <CategoryContainer header='TOP RATED'>       
-                    <Category url={Urls.MovieTopRated} categoryType={CategoryType.Movie} />    
+                    <Category url={Urls.SeriesTopRated} categoryType={CategoryType.Series} />    
                 </CategoryContainer>
                 }
 
                 {sidebarCategorySelected===SidebarCategories.Popular && 
                 <CategoryContainer header='POPULAR' >       
-                     <Category url={Urls.MoviePopular} categoryType={CategoryType.Movie} />   
+                     <Category url={Urls.SeriesPopular} categoryType={CategoryType.Series} />   
                 </CategoryContainer>
                 }
                 {sidebarCategorySelected===SidebarCategories.Upcoming && 
-                <CategoryContainer header='UPCOMING' >       
-                    <Category url={Urls.UpComingMovies} categoryType={CategoryType.Movie} />   
+                <CategoryContainer header='Airing this Week' >       
+                    <Category url={Urls.AiringThisWeek} categoryType={CategoryType.Series} />   
                 </CategoryContainer>
                 }
                 {sidebarCategorySelected===SidebarCategories.None && 
