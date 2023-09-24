@@ -9,6 +9,7 @@ import { CategoryType } from '../enums/categoryType'
 import Sidebar from '../components/sidebar/Sidebar';
 import { Pages } from '../enums/pages';
 import {useEffect} from 'react';
+import Banner from './components/banner/Banner';
 type HomeProps= {
     setSelectedPage:(value:Pages) => void;
     sidebarCategorySelected: SidebarCategories;    
@@ -22,17 +23,16 @@ const Home = ({setSelectedPage, isAboveMediumScreens,sidebarCategorySelected, se
     },[]);
 
     return(
-        <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['repsonsive-content']}`}>
+        <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['responsive-content']}`}>
             <div className={sidebarStyles.content}>
                 <Sidebar isAboveMediumScreens={isAboveMediumScreens}  >
                     <ul className={sidebarStyles['sidebar-ul']}>
                         <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected===SidebarCategories.PlayingNow?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
                         <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Popular?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
                         <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.TopRated?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Celebrities)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Celebrities?sidebarStyles['isActive']:''}`}><h2>Celebrities</h2></li>
                     </ul>
                 </Sidebar>
-
+                <Banner />
                 {sidebarCategorySelected===SidebarCategories.PlayingNow && 
                     <CategoryContainer header='PLAYING NOW'  >       
                         <ButtonsAndCategories 

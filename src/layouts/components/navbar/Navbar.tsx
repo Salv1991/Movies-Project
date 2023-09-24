@@ -15,8 +15,8 @@ const Navbar = ({selectedPage}:NavbarProps) => {
                     </div>
                 </Link>
                 <div className={navbarStyles['links-container']}>    
-                    <NavLink to={'/browse'} className={`${navbarStyles['link']} ${selectedPage===Pages.Homepage? navbarStyles['selectedPage']: ''}`}>
-                        <h2>BROWSE</h2>
+                    <NavLink to={'/'} className={`${navbarStyles['link']} ${selectedPage===Pages.Homepage? navbarStyles['selectedPage']: ''}`}>
+                        <h2>HOME</h2>
                     </NavLink>
                     <NavLink to={'/movies'} className={`${navbarStyles['link']} ${selectedPage===Pages.Movies? navbarStyles['selectedPage']: ''}`}>
                         <h2>MOVIES</h2>
