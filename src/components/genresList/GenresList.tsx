@@ -2,23 +2,29 @@
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
 //ICONS
 import { ArrowDownIcon, ArrowRightIcon} from '@heroicons/react/20/solid';
-//ENUMS
-import { SidebarCategories } from '../../enums/sidebarCategories';
 
+type Genre = {
+    id: number;
+    name: string;
+}
 type GenresListProps = {
+    genresSelected: Genre[];
+    setGenresSelected: (value:Genre[])=> void;
     genresList: any;
     isLoaded:boolean;
     error: any;
-    selectedGenreId: number;
     isClosed: boolean;
-    sidebarCategorySelected: SidebarCategories;
     setIsClosed: (value:boolean) => void;
-    setSelectedGenreName: (value: string) => void;
-    setSelectedGenreId: (value: number) => void;
-    setSidebarCategorySelected: (value: SidebarCategories)=> void;
 }
-const GenresList = ({ genresList, isLoaded, error, isClosed, setIsClosed, selectedGenreId, setSelectedGenreId, setSelectedGenreName, sidebarCategorySelected,setSidebarCategorySelected }:GenresListProps) => {
-  
+const GenresList = ({genresSelected, setGenresSelected, genresList, isLoaded, error, isClosed, setIsClosed   }:GenresListProps) => {
+    const handleGenreSelection = (genre:Genre) => {
+        if(genresSelected.includes(genre)){
+            setGenresSelected(genresSelected.filter((genreInList)=> genreInList!==genre ))
+        }else{
+            setGenresSelected([...genresSelected, genre]);
+        }
+        console.log("GENRE LIST", genresSelected);
+    }; 
     return(
         <div className={sidebarStyles['genres-list-section']}>
             {isLoaded && !error && 
@@ -26,15 +32,13 @@ const GenresList = ({ genresList, isLoaded, error, isClosed, setIsClosed, select
             <button onClick={() => setIsClosed(!isClosed)}>Genres{!isClosed?<ArrowDownIcon/>:<ArrowRightIcon/>}</button>
             <div className={` ${isClosed? sidebarStyles['hidden']: sidebarStyles['genres-list-container']}`}>
                 <ul className={` ${ isClosed? sidebarStyles['hidden'] :sidebarStyles['genres-list']} `}>
-                    {genresList.map((genre:{id:number, name:string}) => (
+                    {genresList.map((genre:Genre) => (
                         <li 
                             key={genre.id} 
                             onClick={() => {
-                                setSelectedGenreId(genre.id);
-                                setSelectedGenreName(genre.name);
-                                setSidebarCategorySelected(SidebarCategories.None);
+                                handleGenreSelection(genre);
                             }}  
-                            className={`${sidebarStyles['genre-li']} ${genre.id===selectedGenreId &&sidebarCategorySelected===SidebarCategories.None? sidebarStyles['isActive']:''}`}
+                            className={`${sidebarStyles['genre-li']} ${genresSelected.includes(genre)? sidebarStyles['isActive']:''}`}
                         >
                             <h3>{genre.name}</h3>
                         </li>    
@@ -42,7 +46,10 @@ const GenresList = ({ genresList, isLoaded, error, isClosed, setIsClosed, select
                 </ul>
             </div>    
             </>
-            }        
+            }
+            {!isLoaded  || error && 
+                <div> Error</div>
+            }       
         </div>
     )
 }

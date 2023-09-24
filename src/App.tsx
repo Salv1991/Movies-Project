@@ -7,6 +7,7 @@ import RootLayout from "./layouts/rootLayout/RootLayout";
 import Home from "./home/Home";
 import Media from "./pages/media/Media";
 import Movies from "./pages/movies/Movies.tsx";
+import Searched from "./pages/searched/Searched.tsx";
 //ENUMS
 import { SidebarCategories } from "./enums/sidebarCategories.ts";
 import { CategoryType } from "./enums/categoryType.ts";
@@ -15,9 +16,10 @@ import Series from "./pages/series/Series.tsx";
 //HOOKS
 import useMediaQuery from "./hooks/useMediaQuery.ts";
 import { Pages } from "./enums/pages.ts";
+import Person from "./pages/person/Person.tsx";
 function App() {
   const[sidebarCategorySelected, setSidebarCategorySelected]  = useState(SidebarCategories.PlayingNow);
-  const isAboveMediumScreens = useMediaQuery('(min-width:800px)');
+  const isAboveMediumScreens = useMediaQuery('(min-width:1050px)');
   const [selectedPage, setSelectedPage] = useState<Pages>(Pages.Movies);
   
   return (
@@ -26,12 +28,12 @@ function App() {
         <Routes>
           <Route path="/" element={<RootLayout selectedPage={selectedPage} />}>
             <Route index element={<Home setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens} setSidebarCategorySelected={setSidebarCategorySelected} sidebarCategorySelected={sidebarCategorySelected} />} />
-            <Route path="/movies" element={<Movies setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens} setSidebarCategorySelected={setSidebarCategorySelected} sidebarCategorySelected={sidebarCategorySelected} />} />
-            <Route path="/series" element={<Series setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens} setSidebarCategorySelected={setSidebarCategorySelected} sidebarCategorySelected={sidebarCategorySelected} />} />
-
-            <Route path="movie/:id" element={<Media mediaType={MediaType.Movie} childType={CategoryType.Movie}/>} />
-            <Route path="series/:id" element={<Media mediaType={MediaType.TV} childType={CategoryType.Series} />} />
-
+            <Route path="/movies" element={<Movies setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens}   />} />
+            <Route path="/series" element={<Series setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens}   />} />
+            <Route path="/searched/:query" element={<Searched setSelectedPage={setSelectedPage} isAboveMediumScreens={isAboveMediumScreens} />} />
+            <Route path="movie/:id" element={<Media setSelectedPage={setSelectedPage} mediaType={MediaType.Movie} childType={CategoryType.Movie}/>} />
+            <Route path="series/:id" element={<Media setSelectedPage={setSelectedPage} mediaType={MediaType.TV} childType={CategoryType.Series} />} />
+            <Route path="person/:id" element={<Person  />} />
           </Route>
         </Routes>
       </BrowserRouter> 

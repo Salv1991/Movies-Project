@@ -3,9 +3,14 @@ import {useState, useEffect} from 'react';
 export const baseUrl = `https://api.themoviedb.org/3/`;
 
 type fetchedDataProps = {
-    adult: boolean
-    backdrop_path: string
-    genre_ids:number[]
+    adult: boolean;
+    gender?: number;
+    known_for?: fetchedDataProps[];
+    known_for_department?:string;
+    backdrop_path: string;
+    genre_ids:number[];
+    first_air_date?: string;
+    media_type?: string;
     id: 385687
     original_language: string
     original_title?: string
@@ -13,12 +18,13 @@ type fetchedDataProps = {
     name?:string
     overview: string
     popularity: number
-    poster_path:string
-    release_date:string
-    title:string
-    video: boolean
-    vote_average: number
-    vote_count:number
+    poster_path:string | null;
+    release_date:string;
+    title:string;
+    video: boolean;
+    vote_average: number;
+    vote_count:number;
+    profile_path:string | null;
 }
 
 export const useApi = (url:string) => {
@@ -29,10 +35,10 @@ export const useApi = (url:string) => {
         fetch(`https://api.themoviedb.org/3/${url}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
         .then(response => response.json())
         .then(fetchedData => {
-            console.log(`https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
             setData(fetchedData.results);
             setIsLoaded(true);
             console.log("fetched by useApi",fetchedData)
+            console.log(`URL`,`https://api.themoviedb.org/3/${url}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
         })
         .catch(err => {
             console.error(err);
@@ -67,7 +73,7 @@ type SpokenLanguages = {
     iso_639_1: string;
     name: string;
 }
-type MovieProps = {
+type MediaProps = {
         adult: boolean;
         backdrop_path: string;
         belongs_to_collection: [] | null;
@@ -84,9 +90,11 @@ type MovieProps = {
         poster_path: string;
         production_companies: ProductionCompanies[] | null;
         production_countries: ProductionCountries[] | null;
-        release_date: string;
+        release_date?: string;
+        first_air_date?: string;
         revenue: number;
-        runtime: number;
+        runtime?: number;
+        episode_run_time?: number[];
         spoken_languages: SpokenLanguages[] | null;
         status: string;
         tagline: string;
@@ -96,7 +104,7 @@ type MovieProps = {
         vote_count: number;
 }
 export const useApiSearchById = (url:string) => {
-    const [data, setData] = useState<MovieProps>({
+    const [data, setData] = useState<MediaProps>({
         adult: false,
         backdrop_path: '',
         belongs_to_collection: null,
@@ -106,15 +114,18 @@ export const useApiSearchById = (url:string) => {
         id: 0,
         imdb_id: '',
         original_language:'',
-        original_title: '', 
+        original_title: '',
+        name: '', 
         overview: '',
         popularity: 0,
         poster_path: '',
         production_companies: [],
         production_countries: [],
         release_date: '',
+        first_air_date: '',
         revenue: 0,
         runtime: 0,
+        episode_run_time: [],
         spoken_languages: [],
         status: '',
         tagline: '',
@@ -135,7 +146,8 @@ export const useApiSearchById = (url:string) => {
             console.log(`this: https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
         })
         .catch(err => {
-            console.error(err);
+            console.log("ERRORRRR:", error)
+            console.error("ERRORRRR:",err);
             setError(error);
         });
     };

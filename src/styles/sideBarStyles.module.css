@@ -1,3 +1,4 @@
+/*---------------------------------- SIDEBAR  STYLES------------------------------------------*/
 .sidebar-menu {
     height: 100%;
     position: fixed;
@@ -27,48 +28,57 @@
     color: rgb(202, 201, 201);
     font-weight:700;
     letter-spacing: 2px;
-    font-size: clamp(.9rem, 2vw, 1.2rem); 
+    font-size: clamp(1.2rem, 2vw, 1.6rem); 
 
 }
 
 .genres-list-section {
-    border-top: rgb(85, 85, 85) solid thin;
     margin-top: 20px;
-    padding-top: 50px;
     padding-inline: 40px;
     max-height: 40%;
-
+    width:100%;
+    margin-top: 70px;
 }
 
 .genres-list-section button {
     color: rgb(202, 201, 201);
     font-weight:700;
     letter-spacing: 2px;
-    font-size: clamp(.9rem, 2vw, 1.2rem); 
+    font-size: clamp(1.2rem, 2vw, 1.6rem); 
     display: flex;
     align-items: center;
     gap: .5rem;
     cursor: pointer;
 
 }
+.genres-list-section label {
+    color: rgb(202, 201, 201);
+    font-weight:300;
+    letter-spacing: 2px;
+    font-size: clamp(1.3rem, 2vw, 1.2rem); 
+  
+    cursor: pointer;
 
+}
+.genres-list-section input {
+    margin-left: 10px;
+}
 .genres-list-section button svg {
     width: 15px;
     height: 15px;
 }
 .genres-list-container {
-    width:200px;
+    width:100%;
     padding-right: 20px;
     margin-top: 1rem;
     overflow-y:scroll;
     overflow-x: hidden;
-    max-height: 300px;
-    background-color: #b3045b11;
+    max-height: 500px;
+    background-color: #38383811;
     border-radius: 10px;
 }
 .genres-list-container::-webkit-scrollbar {
     width: .3em;
-
   }
    
   .genres-list-container::-webkit-scrollbar-track {
@@ -81,7 +91,6 @@
   }
 .genres-list {
     width: 100%;
-    font-size: 1.1rem;  
 }
 
 .genre-li {
@@ -90,25 +99,29 @@
 }
 .genre-li:hover {
     background: linear-gradient(90deg, #75163e5d,#bb004e31, #b4014c00);
-
 }
 .genres-list h3 {
     color: rgb(202, 201, 201);
     font-weight:300;
-    letter-spacing: 2px;
-    font-size: clamp(.9rem, 2vw, 1.2rem); 
+    letter-spacing: 1px;
+    font-size: clamp(1.4rem, 2vw, 1.5rem); 
 }
 .sidebar-li:hover {
     background-color: rgb(53, 53, 53);
     background: linear-gradient(90deg, #75163e5d,#bb004e1c, #b4014c05);
 }
+.isActive {
+    background: linear-gradient(90deg, #b908527e,#f501673a, #f5016713) !important;
+}
+
+/*---------------------------------- MAIN CONTENT STYLES------------------------------------------*/
 .page-content-with-sidebar{
-    padding-top: 50px;
+    padding-top: 0px;
     margin-left: 20%;
 }
-.repsonsive-content{
+.responsive-content{
     margin-left: 0;
-    padding-top: 50px;
+    padding-top: 0px;
 
 }
 .content-page-header {
@@ -125,57 +138,45 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+/*---------------------------------- RESPONSIVE SIDEBAR STYLES------------------------------------------*/
+
 .sidebar-hamburger-icon-container {
-    color: red;
+    color: white;
     position: fixed;
-    top: 90px;
-    left:10px;
-    width: 20px;
-    height: 20px;
+    top: 100px;
+    left:20px;
+    width: 30px;
+    height: 30px;
     z-index: 110;
+    background-color: #f50167;
+    border-radius: 50%;
+    padding:5px;
 }
-.isActive {
-    background: linear-gradient(90deg, #b908527e,#f501673a, #f5016713);
-}
+
+
 div.hidden {
     display: none;
 }
+
+/*---------------------------------- RESPONSIVE MODE ------------------------------------------*/
+
 @media (width<1700px){
-  
-    
-}
-
-
-@media (width<1300px){
-   
     .page-content-with-sidebar{
-        margin-left: 25%;
+        margin-left: 350px;
     }
     .sidebar-menu {
-        width: 25%;
-
-    }
-}
-@media (width<800px){
-    
-    .page-content-with-sidebar{
-        margin-left: 25%;
-    }
-    .sidebar-menu {
-        width: 50%;
-
-    }
+        width: 350px;
+    } 
 }
 
 @media (width<700px){
     .sidebar-menu {
         width: 50%;
-
     }
 }
+
 @media (width<450px){
     .sidebar-menu {
         width: 100%;
-
     }
 }

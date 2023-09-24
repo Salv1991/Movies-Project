@@ -1,0 +1,139 @@
+.filters-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    color: black;
+    margin-left: auto;
+    font-size: clamp(1.3rem, 2vw, 1.5rem);
+    margin-bottom: 50px;
+    margin-top: -25px;
+
+}
+.filters-container select {
+    background-color: transparent;
+    border: solid thin rgb(10, 10, 10);
+    padding: 2px;
+    margin-left: 10px;
+}
+
+.option:hover {
+    background-color: #ce1a56fb;
+}
+.upper-section{
+    display: flex;
+    justify-content: start;
+    align-items: center;   
+    gap: 10px; 
+    width: 100%;
+}
+.sort-select-container {
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sort-select-container span {
+    margin-left: 20px;
+}
+.filter-button-container button {
+    width: 37px;
+    height: 37px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    padding:3px;
+}
+.filter-button-container button:hover {
+    background-color: rgba(255, 253, 253, 0.295);
+}
+button.descended-button svg {
+    color: rgb(1, 114, 1);
+}
+button.ascended-button svg {
+    color: rgb(175, 5, 5);
+}
+
+.filters-container svg {
+    width: 40px;
+    height: 40px;
+    color: black;
+}
+
+.filters-container .filter-button-container {
+    align-self: start;
+}
+
+.genre-filter-list-container{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 20px;
+}
+.genre-filter-list-container ul {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap:10px;
+    flex-wrap: wrap;
+
+}
+.genre-filter-list-container li {
+    border-radius: 20px;
+    padding: 3px 12px;
+    background-color: #ce0649ea;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.genre-filter-list-container li:hover{
+    background-color: rgba(228, 5, 72, 0.705);
+}
+
+.genre-filter-list-container svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.adult-filter-button {
+    color:black;
+    padding:3px 10px;
+    border-radius:20px;
+    
+}
+.adult-filter-button:hover {
+    background-color: rgba(255, 253, 253, 0.295);
+
+
+}
+.adult-filter-button span{
+    color: red;
+    margin-left: 10px;
+}
+.adult-filter-button span.adult-filter-on{
+    color: green;
+    margin-left: 10px;
+}
+
+
+@media (width<750px){  
+    .filters-container{
+        flex-wrap: wrap;
+    }
+    .gender-filter-list-container {
+        flex-basis: 100%;
+    }
+}
+
+@media (width<450px){  
+    .upper-section {
+        flex-direction: column;
+       
+    }
+    .genre-filter-list-container li {
+        padding: 1px 8px;  
+        gap: 0px;
+    }
+}

@@ -1,98 +1,84 @@
-import {  useState } from 'react';
-
+import {  useState, useEffect} from 'react';
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
 //ENUMS
 import { CategoryType } from '../../enums/categoryType';
-import { Urls } from '../../enums/urls';
-import { SidebarCategories } from '../../enums/sidebarCategories';
-
+import { Pages } from '../../enums/pages';
+import { MediaType } from '../../enums/mediaType';
+//HOOKS
+import { useGenreListApi } from '../../hooks/useGenreListApi';
 //COMPONENTS
+import FiltersBar from '../../components/filtersBar/FiltersBar';
 import Category from '../../components/category/Category';
 import { CategoryContainer } from '../../components/categoryContainer/CategoryContainer';
 import GenresList from '../../components/genresList/GenresList';
 import Sidebar from '../../components/sidebar/Sidebar';
-import { useGenreListApi } from '../../hooks/useGenreListApi';
-import { useEffect} from 'react';
-import { Pages } from '../../enums/pages';
-import { MediaType } from '../../enums/mediaType';
+
+type Genre = {
+    id: number;
+    name: string;
+}
 type SeriesProps = {
     setSelectedPage: (value:Pages) => void;
     isAboveMediumScreens:boolean;
-    sidebarCategorySelected: SidebarCategories;    
-    setSidebarCategorySelected: (value:SidebarCategories) => void;
 }
-const Series = ({setSelectedPage, isAboveMediumScreens, sidebarCategorySelected, setSidebarCategorySelected}:SeriesProps) => {
+const Series = ({setSelectedPage, isAboveMediumScreens }:SeriesProps) => {
+    let ids = '&with_genres=';
+    const[includeAdult, setIncludeAdult] = useState<boolean>(false);
     const [isClosed, setIsClosed]  = useState<boolean>(false);
-    const [selectedGenreId, setSelectedGenreId] = useState<number>(10759);
-    const [selectedGenreName, setSelectedGenreName] = useState<string>('ACTION & ADVENTURE');
     const{ data:genresList, isLoaded, error} = useGenreListApi(MediaType.TV);
+    const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
+    const [sortByQuery, setSortByQuery] = useState<string>('popularity');   
+    const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
+    const [ filteredUrl, setFilteredUrl] = useState(`discover/tv?include_adult=false&include_video=false&language=en-US&page=1&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
+  
     useEffect(() => {
         setSelectedPage(Pages.TVSeries);
-        setSidebarCategorySelected(SidebarCategories.PlayingNow);
-        /* setSelectedGenreId(10759);
-        setSelectedGenreName('ACTION & ADVENTURE'); */
-    
     },[]);
+    useEffect(() => {
+        genresSelected.forEach(genre => {
+            ids+=genre.id+',';
+        })
+        setFilteredUrl(`discover/tv?include_adult=false&include_video=false&language=en-US&page=1&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
+    },[sortByDescendedOrder, sortByQuery, genresSelected, includeAdult]);
     
     return (
         <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['repsonsive-content']}`}>
         <div className={sidebarStyles.content}>
-            
-            <Sidebar isAboveMediumScreens={isAboveMediumScreens}  >
-                    <ul className={sidebarStyles['sidebar-ul']}>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.PlayingNow)} className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected===SidebarCategories.PlayingNow?sidebarStyles['isActive']:''} `}><h2>Playing Now</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Upcoming)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Upcoming?sidebarStyles['isActive']:''}`}><h2>Airing this Week</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.Popular)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Popular?sidebarStyles['isActive']:''}`}><h2>Popular</h2></li>
-                        <li onClick={() => setSidebarCategorySelected(SidebarCategories.TopRated)} className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.TopRated?sidebarStyles['isActive']:''}`}><h2>Top Rated</h2></li>
-                            
-                    </ul>
+
+            {/* SIDEBAR */}
+                <Sidebar isAboveMediumScreens={isAboveMediumScreens} >              
                     <GenresList 
+                        genresSelected= {genresSelected}
+                        setGenresSelected= {setGenresSelected}
                         isLoaded={isLoaded}
                         error={error}
                         genresList={genresList}
-                        selectedGenreId={selectedGenreId}
                         isClosed={isClosed} 
                         setIsClosed={setIsClosed} 
-                        setSelectedGenreId={setSelectedGenreId} 
-                        setSelectedGenreName={setSelectedGenreName} 
-                        sidebarCategorySelected={sidebarCategorySelected} 
-                        setSidebarCategorySelected={setSidebarCategorySelected} 
-                    />
-                    
-            </Sidebar>
+                   />
+                </Sidebar>
 
             {/* MAIN CONTENT */}
                 <h1 className={sidebarStyles['content-page-header']}>TV SERIES</h1>
-                {sidebarCategorySelected===SidebarCategories.PlayingNow && 
-                    <CategoryContainer header='PLAYING NOW'>
-                        <Category url={Urls.NowPlayingSeries} categoryType={CategoryType.Series} />   
+                    <CategoryContainer header={''}>
+
+                       {/* FILTER BAR */}
+                        <FiltersBar 
+                            sortByDescendedOrder={sortByDescendedOrder} 
+                            setSortByQuery={setSortByQuery} 
+                            setSortByDescendedOrder={setSortByDescendedOrder} 
+                            genresSelected={genresSelected} 
+                            setGenresSelected= {setGenresSelected}
+                            includeAdult={includeAdult} 
+                            setIncludeAdult={setIncludeAdult}
+                        />
+
+                        {/* FILTERED MOVIES */}
+                        <Category url={filteredUrl} categoryType={CategoryType.Series} />   
+
                     </CategoryContainer>
-                } 
-
-                {sidebarCategorySelected===SidebarCategories.TopRated && 
-                <CategoryContainer header='TOP RATED'>       
-                    <Category url={Urls.SeriesTopRated} categoryType={CategoryType.Series} />    
-                </CategoryContainer>
-                }
-
-                {sidebarCategorySelected===SidebarCategories.Popular && 
-                <CategoryContainer header='POPULAR' >       
-                     <Category url={Urls.SeriesPopular} categoryType={CategoryType.Series} />   
-                </CategoryContainer>
-                }
-                {sidebarCategorySelected===SidebarCategories.Upcoming && 
-                <CategoryContainer header='Airing this Week' >       
-                    <Category url={Urls.AiringThisWeek} categoryType={CategoryType.Series} />   
-                </CategoryContainer>
-                }
-                {sidebarCategorySelected===SidebarCategories.None && 
-                <CategoryContainer header={selectedGenreName.toUpperCase()} >       
-                    <Category url={`discover/tv?include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${selectedGenreId}`} categoryType={CategoryType.Series} />   
-                </CategoryContainer>
-                }     
             </div>
-
         </section> 
     )
 };
