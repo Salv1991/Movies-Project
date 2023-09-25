@@ -5,7 +5,7 @@ import Category from "../category/Category";
 import categoryStyles from '../../styles/categoryStyles.module.css';
 //ENUMS 
 import { CategoryType } from "../../enums/categoryType";
-import { Urls } from "../../enums/urls";
+import { Urls } from "../../enums/urls.ts";
 //TYPES
 type CategoryContainerProps = {
     header: string;
