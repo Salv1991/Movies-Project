@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
 import { Bars3BottomRightIcon } from '@heroicons/react/20/solid';
-import { SidebarCategories } from '../../enums/sidebarCategories';
 
 type SidebarProps = {
    

@@ -7,18 +7,21 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { CategoryType } from '../../enums/categoryType';
 //HOOKS
 import { useApi } from '../../hooks/useApi';
+//COMPONENTS
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
-
-
+//TYPES
 type CategoryProps = {
     url: string;
     categoryType: CategoryType | 'movie' | 'series';
 }
+
+
 const Category = ({ url, categoryType }:CategoryProps) => {
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const {data, isLoaded, error} = useApi(url);
     return(
         <div  className={categoryStyles['category-wrapper']}>
+            {/*LOADING */}
              {!isLoaded && !error &&
                 <div className={categoryStyles['category-wrapper']}>
                     <div >
@@ -26,7 +29,7 @@ const Category = ({ url, categoryType }:CategoryProps) => {
                     </div>
                 </div>
             }
-           
+           {/*MOVIES CONTAINER */}
             {data && isLoaded && 
             <div className={categoryStyles['movies-container']}>
                 {data.map( (movie) => (
@@ -61,7 +64,8 @@ const Category = ({ url, categoryType }:CategoryProps) => {
                     <h3> Error </h3>
                 </div>    
             }
-            {data.length===0 && isLoaded && 
+            {/*NO RESULTS */}
+            {!data && isLoaded && 
                 <div className={categoryStyles['no-results-container']}>
                     <h3>No results</h3>
                 </div>    

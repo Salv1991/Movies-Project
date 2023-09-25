@@ -1,18 +1,29 @@
-import { Pages } from "../../enums/pages";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import {useEffect} from 'react';
+
+//ENUMS
+import { Pages } from "../../enums/pages";
+
+//STYLES
 import searchedStyles from './searchedStyles.module.css';
-import { useApi } from "../../hooks/useApi";
 import categoryStyles from '../../styles/categoryStyles.module.css';
-import { Link } from "react-router-dom";
+
+//HOOKS
+import { useApi } from "../../hooks/useApi";
+
+//ICONS
 import { StarIcon } from "@heroicons/react/20/solid";
+
+//COMPONENTS
 import { CategoryContainer } from "../../components/categoryContainer/CategoryContainer";
 
+//TYPES
 type  SearchedProps = {
     setSelectedPage: (value:Pages)=> void;
     isAboveMediumScreens: boolean;
 }
-const Searched = ({setSelectedPage, isAboveMediumScreens}:SearchedProps) => {
+
+const Searched = ({setSelectedPage }:SearchedProps) => {
     const{query} = useParams();
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const{data, isLoaded, error} = useApi(`search/multi?query=${query}`);

@@ -3,20 +3,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //LAYOUTS
 import RootLayout from "./layouts/rootLayout/RootLayout";
+
 //PAGES
 import Home from "./home/Home";
 import Media from "./pages/media/Media";
 import Movies from "./pages/movies/Movies.tsx";
 import Searched from "./pages/searched/Searched.tsx";
+import Series from "./pages/series/Series.tsx";
+import Person from "./pages/person/Person.tsx";
+
 //ENUMS
 import { SidebarCategories } from "./enums/sidebarCategories.ts";
 import { CategoryType } from "./enums/categoryType.ts";
 import { MediaType } from "./enums/mediaType.ts";
-import Series from "./pages/series/Series.tsx";
+import { Pages } from "./enums/pages.ts";
+
 //HOOKS
 import useMediaQuery from "./hooks/useMediaQuery.ts";
-import { Pages } from "./enums/pages.ts";
-import Person from "./pages/person/Person.tsx";
+
 function App() {
   const[sidebarCategorySelected, setSidebarCategorySelected]  = useState(SidebarCategories.PlayingNow);
   const isAboveMediumScreens = useMediaQuery('(min-width:1050px)');

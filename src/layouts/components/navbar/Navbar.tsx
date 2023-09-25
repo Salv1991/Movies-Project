@@ -1,10 +1,15 @@
 import { NavLink, Link } from "react-router-dom";
+//STYLES
 import navbarStyles from './navbarStyles.module.css';
+//LOGO
 import logo from '/images/logo.png';
+//ENUMS
 import { Pages } from "../../../enums/pages";
+//TYPES
 type NavbarProps = {
     selectedPage: Pages;
 }
+
 const Navbar = ({selectedPage}:NavbarProps) => {
     return(
         <nav className={navbarStyles.navbar}>

@@ -15,6 +15,7 @@
     position: relative;
     overflow: hidden;
     min-height: 899px;
+    margin-bottom: 100px;
 }
 
 .movie-container>img {
@@ -171,14 +172,8 @@
     font-weight:300;
 }
 /* RESPONSIVE MODE */
-@media (width<1080px){
-    .movie-container {
-    }
-    
-}
-@media (width<600px){
-    
-     
+
+@media (width<600px){     
     .rating {
         color:whitesmoke;
         font-size: 1.3rem;

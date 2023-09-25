@@ -16,11 +16,6 @@ body {
 
 body{
   background-color: rgb(219, 219, 219);
-  /* background:url('/images/background2.jpg');
-  backdrop-filter: brightness(20%);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
   font-family: 'Teko', sans-serif;  color: #d3d3d4;
   width: 100%;
   padding-top: 80px;
