@@ -1,10 +1,11 @@
 
-import { Urls } from '../enums/urls';
+
 import {CategoryContainer, ButtonsAndCategories} from '../components/categoryContainer/CategoryContainer';
 import sidebarStyles from '../styles/sideBarStyles.module.css';
 //ENUMS
 import { SidebarCategories } from '../enums/sidebarCategories';
 import { CategoryType } from '../enums/categoryType'
+import { Urls } from '../enums/urls';
 //HOOKS
 import Sidebar from '../components/sidebar/Sidebar';
 import { Pages } from '../enums/pages';
