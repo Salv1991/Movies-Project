@@ -5,7 +5,7 @@ import sidebarStyles from '../styles/sideBarStyles.module.css';
 //ENUMS
 import { SidebarCategories } from '../enums/sidebarCategories';
 import { CategoryType } from '../enums/categoryType'
-import { Urls } from '../enums/urls';
+import { UrlsPresets } from '../enums/urlPresets';
 //HOOKS
 import Sidebar from '../components/sidebar/Sidebar';
 import { Pages } from '../enums/pages';
@@ -37,8 +37,8 @@ const Home = ({setSelectedPage, isAboveMediumScreens,sidebarCategorySelected, se
                 {sidebarCategorySelected===SidebarCategories.PlayingNow && 
                     <CategoryContainer header='PLAYING NOW'  >       
                         <ButtonsAndCategories 
-                            url1= {Urls.NowPlayingMovies}
-                            url2= {Urls.NowPlayingSeries}
+                            url1= {UrlsPresets.NowPlayingMovies}
+                            url2= {UrlsPresets.NowPlayingSeries}
                             type1={CategoryType.Movie}
                             type2={CategoryType.Series}
                         />
@@ -47,8 +47,8 @@ const Home = ({setSelectedPage, isAboveMediumScreens,sidebarCategorySelected, se
                 {sidebarCategorySelected===SidebarCategories.TopRated && 
                 <CategoryContainer header='TOP RATED'>       
                     <ButtonsAndCategories 
-                        url1= {Urls.MovieTopRated}
-                        url2= {Urls.SeriesTopRated}
+                        url1= {UrlsPresets.MovieTopRated}
+                        url2= {UrlsPresets.SeriesTopRated}
                         type1={CategoryType.Movie}
                         type2={CategoryType.Series}
                     />
@@ -58,8 +58,8 @@ const Home = ({setSelectedPage, isAboveMediumScreens,sidebarCategorySelected, se
                 {sidebarCategorySelected===SidebarCategories.Popular && 
                 <CategoryContainer header='POPULAR' >       
                     <ButtonsAndCategories 
-                        url1= {Urls.MoviePopular}
-                        url2= {Urls.SeriesPopular}
+                        url1= {UrlsPresets.MoviePopular}
+                        url2= {UrlsPresets.SeriesPopular}
                         type1={CategoryType.Movie}
                         type2={CategoryType.Series}
                     />

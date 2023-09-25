@@ -5,15 +5,15 @@ import Category from "../category/Category";
 import categoryStyles from '../../styles/categoryStyles.module.css';
 //ENUMS 
 import { CategoryType } from "../../enums/categoryType";
-import { Urls } from "../../enums/urls.ts";
+import { UrlsPresets } from "../../enums/urlPresets.ts";
 //TYPES
 type CategoryContainerProps = {
     header: string;
     children: React.ReactNode;
 }
 type ButtonsAndCategoriesProps ={
-    url1: Urls;
-    url2: Urls;
+    url1: UrlsPresets;
+    url2: UrlsPresets;
     type1: CategoryType | "movie" | "series";
     type2: CategoryType | "movie" | "series";
 }
