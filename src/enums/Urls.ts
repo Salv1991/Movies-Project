@@ -16,7 +16,6 @@ export enum Urls {
         TrendingCelebrities= `trending/person/day?language=en-US`,
         PopularCelebrities= `person/popular?language=en-US`,
         SimilarMovies= `movie/667538/similar?language=en-US`,
-        AiringThisWeek= `tv/on_the_air?language=en-US`,
-
+        AiringThisWeek= `tv/on_the_air?language=en-US`
 }
 
