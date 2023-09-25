@@ -14,6 +14,7 @@ import { CategoryContainer } from '../../components/categoryContainer/CategoryCo
 import GenresList from '../../components/genresList/GenresList';
 import Sidebar from '../../components/sidebar/Sidebar';
 
+//TYPES
 type Genre = {
     id: number;
     name: string;
@@ -22,6 +23,8 @@ type SeriesProps = {
     setSelectedPage: (value:Pages) => void;
     isAboveMediumScreens:boolean;
 }
+
+
 const Series = ({setSelectedPage, isAboveMediumScreens }:SeriesProps) => {
     let ids = '&with_genres=';
     const[includeAdult, setIncludeAdult] = useState<boolean>(false);

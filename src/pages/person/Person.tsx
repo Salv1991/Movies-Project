@@ -12,6 +12,7 @@ import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 type PersonProps = {
    
 }
+
 const Person = ({}:PersonProps) => {
     const {id} = useParams();
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
