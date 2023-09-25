@@ -1,4 +1,4 @@
-export enum Urls {
+export const enum Urls {
         TrendingMovieWeek = `trending/movie/week?language=en-US`,
         TrendingMovieDay = `trending/movie/day?language=en-US`,
         TrendingTVSeriesWeek= `trending/tv/week?language=en-US`,

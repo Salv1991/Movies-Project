@@ -1,4 +1,4 @@
-export enum CategoryType{
+export  const enum CategoryType{
     Series= `series`,
     Movie= `movie`,
     Person= `person`

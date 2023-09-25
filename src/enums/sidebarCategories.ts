@@ -1,4 +1,4 @@
-export enum  SidebarCategories {
+export const enum  SidebarCategories {
     None= `none`,
     PlayingNow= `playing-now`,
     Popular= `popular`,
