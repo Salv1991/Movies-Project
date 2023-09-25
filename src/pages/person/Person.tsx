@@ -1,9 +1,14 @@
 import { useParams } from "react-router-dom";
-import {  ClockIcon } from "@heroicons/react/20/solid";
 //STYLES
 import mediaStyles from '../media/movieStyles.module.css';
+
+//HOOKS
 import { useApiSearchById } from "../../hooks/useApi";
 
+//COMPONENTS
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+
+//TYPES
 type PersonProps = {
    
 }
@@ -15,7 +20,14 @@ const Person = ({}:PersonProps) => {
 
     return (
         <section className={mediaStyles['movie-page-section']}>
-            {data && isLoaded? (
+            {!isLoaded  && !error && 
+                <div className={mediaStyles['movie-container']}>
+                    <div >
+                        <LoadingSpinner />
+                    </div>
+                </div>
+            }
+            {data && isLoaded &&
                 <div className={mediaStyles['movie-container']}>
 
                     {/* LEFT SIDE */}
@@ -45,29 +57,21 @@ const Person = ({}:PersonProps) => {
                                     </div>
                                     </h2>
                                     <h2 className={mediaStyles['detail']}><span>Birthday:{data.birthday}</span></h2>
-                                    <div className={mediaStyles['divider']}></div>
-                                    <h2 className={mediaStyles['detail']}><ClockIcon/> <span>{data.runtime}min</span></h2>
-                                </div>
-                            </div>
-                            
+                               </div>
+                            </div>    
                         </div>
                        
                         <div className={`${mediaStyles['movie-overview-container']}`}>
                             <p>{data.biography}</p>
                         </div>   
                         <div className={`${mediaStyles['rating-container']} ${data.vote_average<=6?mediaStyles['red-rating']:''}${data.vote_average>6?mediaStyles['orange-rating']:''} ${data.vote_average>=8?mediaStyles['green-rating']:''}`}>
-                                <h3 className={mediaStyles['rating']}>{data.vote_average?.toFixed(1)}</h3>
+                            <h3 className={mediaStyles['rating']}>{data.vote_average?.toFixed(1)}</h3>
                         </div>  
                     </div> 
                 </div>  
-            ):(
-                <h1>Loading</h1>
-            )}
+            }
             
-            {/* SIMILAR MOVIES SECTION */}
-            <div>
-             
-            </div>
+           
         </section>
     )
 }

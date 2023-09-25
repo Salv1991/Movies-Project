@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { StarIcon } from '@heroicons/react/20/solid';
 import categoryStyles from '../../styles/categoryStyles.module.css';
-import { Genres } from '../../enums/genres';
+type Genre = {
+    id: number;
+    name: string;
+}
 type MovieCategoryPreviewProps = {
-  genre: Genres;
+  genre: Genre;
 }
 const SearchById = ({genre}:MovieCategoryPreviewProps) => {
     type fetchedDataProps = {

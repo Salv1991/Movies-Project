@@ -13,7 +13,7 @@ import { CategoryContainer } from '../../components/categoryContainer/CategoryCo
 import GenresList from '../../components/genresList/GenresList';
 import Sidebar from '../../components/sidebar/Sidebar';
 import FiltersBar from '../../components/filtersBar/FiltersBar';
-
+//TYPES
 type Genre = {
     id: number;
     name: string;
@@ -22,6 +22,7 @@ type MoviesProps = {
     setSelectedPage: (value:Pages) => void;
     isAboveMediumScreens: boolean;
 }
+
 const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
     let ids = '&with_genres=';
     const[includeAdult, setIncludeAdult] = useState<boolean>(false);
@@ -47,8 +48,7 @@ const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
         <div className={sidebarStyles.content}>
 
             {/* SIDEBAR */}
-                <Sidebar isAboveMediumScreens={isAboveMediumScreens} >  
-                                
+                <Sidebar isAboveMediumScreens={isAboveMediumScreens} >                      
                     <GenresList 
                         genresSelected= {genresSelected}
                         setGenresSelected= {setGenresSelected}
@@ -57,8 +57,7 @@ const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
                         genresList={genresList}
                         isClosed={isClosed} 
                         setIsClosed={setIsClosed}            
-                    />
-                    
+                    />            
                 </Sidebar>
 
             {/* MAIN CONTENT */}

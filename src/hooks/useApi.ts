@@ -77,6 +77,8 @@ type MediaProps = {
         adult: boolean;
         backdrop_path: string;
         belongs_to_collection: [] | null;
+        biography?: string;
+        birthday?: string;
         budget: number;
         genres: Genre[] | null;
         homepage: string;
@@ -88,6 +90,7 @@ type MediaProps = {
         overview: string;
         popularity: number;
         poster_path: string;
+        profile_path?: string;
         production_companies: ProductionCompanies[] | null;
         production_countries: ProductionCountries[] | null;
         release_date?: string;

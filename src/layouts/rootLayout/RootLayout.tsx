@@ -1,10 +1,17 @@
+//COMPONENTS
 import Navbar from '../components/navbar/Navbar';
+
+//OUTLET
 import { Outlet } from "react-router-dom";
-import sidebarStyles from '../../styles/sideBarStyles.module.css';
+
+//ENUMS
 import { Pages } from '../../enums/pages';
+
+//TYPES
 type RootLayout = {
     selectedPage:Pages;
 }
+
 const RootLayout = ({selectedPage}:RootLayout) => {
     return(
         <>
@@ -13,7 +20,6 @@ const RootLayout = ({selectedPage}:RootLayout) => {
                 <Outlet />
             </main>
         </>
-
     )
 }
 export default RootLayout;

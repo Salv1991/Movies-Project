@@ -1,5 +1,5 @@
 import bannerStyles from './bannerStyles.module.css';
-import {useEffect, useState} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const Banner = () => {
     const navigate = useNavigate();

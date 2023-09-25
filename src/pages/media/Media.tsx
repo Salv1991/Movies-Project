@@ -1,23 +1,34 @@
 import { useParams } from "react-router-dom";
 import {useEffect} from 'react';
+//ICONS
 import { CalendarIcon, ClockIcon } from "@heroicons/react/20/solid";
+
 //STYLES
 import mediaStyles from './movieStyles.module.css';
+
+//COMPONENTS
 import Category from "../../components/category/Category";
 import { CategoryContainer } from "../../components/categoryContainer/CategoryContainer";
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+
+//HOOKS
 import { useApiSearchById } from "../../hooks/useApi";
+
+//ENUMS
 import { CategoryType } from "../../enums/categoryType";
 import { Pages } from "../../enums/pages";
-import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+
+//TYPES
 type MediaProps = {
     mediaType:string;
     childType: CategoryType;
     setSelectedPage: (value:Pages)=> void;
 }
+
 const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
     const {id} = useParams();
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
-    const imagePathWidth1000 = `https://image.tmdb.org/t/p/w1280/`;
+    const imagePathWidth1280 = `https://image.tmdb.org/t/p/w1280/`;
     const{ data, isLoaded, error} = useApiSearchById(`${mediaType}/${id}`);
     useEffect( () => {
         if(childType === CategoryType.Movie){
@@ -40,7 +51,7 @@ const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
            
             {data && isLoaded &&
                 <div className={mediaStyles['movie-container']}>
-                    <img src={data.backdrop_path==null ? imagePathWidth1000+'/images/placeholder-image.svg' : imagePathWidth1000+data.backdrop_path} alt="" />
+                    <img src={data.backdrop_path==null ? imagePathWidth1280+'/images/placeholder-backdrop.svg' : imagePathWidth1280+data.backdrop_path} alt="" />
 
                     {/* LEFT SIDE */}
                     <div className={mediaStyles['left']}>
@@ -72,21 +83,30 @@ const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
                                         ))}
                                     </div>
                                     </h2>
-                                    <div className={mediaStyles['divider']}></div>
-                                    <h2 className={mediaStyles['detail']}><CalendarIcon/><span>{data.release_date || data.first_air_date}</span></h2>
-                                    <div className={mediaStyles['divider']}></div>
-                                        {data.runtime && 
+                                    {data.release_date &&
+                                        <>
+                                        <h2 className={mediaStyles['detail']}><CalendarIcon/><span>{data.release_date}</span></h2>
+                                        <div className={mediaStyles['divider']}></div>
+                                        </> 
+                                    }
+                                    {data.first_air_date &&
+                                        <>
+                                        <h2 className={mediaStyles['detail']}><CalendarIcon/><span>{data.first_air_date}</span></h2>
+                                        <div className={mediaStyles['divider']}></div>
+                                        </> 
+                                    }
+                                    {data.runtime && 
                                         <h2 className={mediaStyles['detail']}>
                                             <ClockIcon/>
-                                            <span>{data.runtime }min</span>
+                                            <span>{data.runtime}min</span>
                                         </h2>
-                                        }
-                                        {data.episode_run_time &&
-                                            <h2 className={mediaStyles['detail']}>
-                                                <ClockIcon/>
-                                                <span>{data.episode_run_time[0] }min</span>
-                                            </h2>
-                                        }
+                                    }
+                                    {data.episode_run_time &&
+                                        <h2 className={mediaStyles['detail']}>
+                                            <ClockIcon/>
+                                            <span>{data.episode_run_time[0]}min</span>
+                                        </h2>
+                                    }
                                     </div>
                             </div>
                             
