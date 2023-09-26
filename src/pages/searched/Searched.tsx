@@ -28,7 +28,7 @@ type  SearchedProps = {
 const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:SearchedProps) => {
     const{query} = useParams();
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
-    const{data, isLoaded, error, categoryPageNumber: page, setCategoryPageNumber: setPage} = useApi(`search/multi?query=${query}`, categoryPageNumber, setCategoryPageNumber);
+    const{data, isLoaded, error} = useApi(`search/multi?query=${query}`, categoryPageNumber, setCategoryPageNumber);
     useEffect(() => {
         setSelectedPage(Pages.None);
         setCategoryPageNumber(1);
