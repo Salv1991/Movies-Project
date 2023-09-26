@@ -21,26 +21,31 @@ type Genre = {
 type MoviesProps = {
     setSelectedPage: (value:Pages) => void;
     isAboveMediumScreens: boolean;
+    categoryPageNumber: number;
+    setCategoryPageNumber: (value:number) => void;
 }
 
-const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
+const Movies = ({categoryPageNumber, setCategoryPageNumber , setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
     let ids = '&with_genres=';
-    const[includeAdult, setIncludeAdult] = useState<boolean>(false);
+    const [includeAdult, setIncludeAdult] = useState<boolean>(false);
     const [isClosed, setIsClosed]  = useState<boolean>(false);
-    const{ data:genresList, isLoaded, error} = useGenreListApi(MediaType.Movie);
+    const {data:genresList, isLoaded, error} = useGenreListApi(MediaType.Movie);
     const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
     const [sortByQuery, setSortByQuery] = useState<string>('popularity');
     const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
-    const [ filteredUrl, setFilteredUrl] = useState<string>(`discover/movie?include_adult=false&include_video=false&language=en-US&page=1&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
+    const [ filteredUrl, setFilteredUrl] = useState<string>(`discover/movie?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
 
     useEffect(() => {
         setSelectedPage(Pages.Movies);
+        setCategoryPageNumber(1);
+        window.scrollTo(0, 0)
+
     },[]);
     useEffect(() => {
         genresSelected.forEach(genre => {
             ids+=genre.id+',';
         })  
-        setFilteredUrl(`discover/movie?include_adult=false&include_video=false&language=en-US&page=1&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
+        setFilteredUrl(`discover/movie?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
     },[sortByDescendedOrder, sortByQuery, genresSelected, includeAdult]);
     
     return (
@@ -50,6 +55,7 @@ const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
             {/* SIDEBAR */}
                 <Sidebar isAboveMediumScreens={isAboveMediumScreens} >                      
                     <GenresList 
+                        setCategoryPageNumber={setCategoryPageNumber}
                         genresSelected= {genresSelected}
                         setGenresSelected= {setGenresSelected}
                         isLoaded={isLoaded}
@@ -76,7 +82,12 @@ const Movies = ({setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
                         />
 
                         {/* FILTERED MOVIES */}
-                        <Category url={filteredUrl} categoryType={CategoryType.Movie} />   
+                        <Category 
+                            categoryPageNumber={categoryPageNumber}
+                            setCategoryPageNumber={setCategoryPageNumber}
+                            url={filteredUrl} 
+                            categoryType={CategoryType.Movie} 
+                        />   
 
                     </CategoryContainer>
             </div>

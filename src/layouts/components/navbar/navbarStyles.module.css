@@ -26,11 +26,14 @@
     gap:2rem;
     
 }
-
-.links-container a h2{
-    font-size: clamp(.7rem, 3vw, 1.4rem);
+.links-container a {
+    height: 100%;
 }
-.links-container a:hover{
+.links-container a h2{
+    font-size: clamp(.8rem, 3vw, 1.4rem);
+}
+.links-container a:hover h2{
+    color: rgb(194, 193, 193);
 }
 .navbar-container {
     display: flex;
@@ -56,7 +59,7 @@
     border-bottom: #e43871 2px solid;
 }
 
-@media (width<480px){
+@media (width<400px){
     .navbar-container{
         gap:20px;
     }
@@ -65,5 +68,9 @@
         gap:10px;
         justify-content: center;
         align-items: center;
+    }
+    .navbar-container{
+        
+        padding-inline: 20px;
     }
 }

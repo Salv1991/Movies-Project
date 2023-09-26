@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import categoryStyles from '../../styles/categoryStyles.module.css';
 //ICONS
 import { StarIcon } from '@heroicons/react/20/solid';
+import {ChevronRightIcon, ChevronDoubleRightIcon, ChevronLeftIcon, ChevronDoubleLeftIcon} from '@heroicons/react/20/solid';
 //ENUMS
 import { CategoryType } from '../../enums/categoryType';
 //HOOKS
@@ -13,13 +14,20 @@ import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 type CategoryProps = {
     url: string;
     categoryType: CategoryType | 'movie' | 'series';
+    categoryPageNumber: number;
+    setCategoryPageNumber:(value:number) => void;
 }
 
 
-const Category = ({ url, categoryType }:CategoryProps) => {
+const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber }:CategoryProps) => {
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
-    const {data, isLoaded, error} = useApi(url);
+    const {data, isLoaded, error, categoryPageNumber: page, setCategoryPageNumber: setPage} = useApi(url, categoryPageNumber, setCategoryPageNumber);
+    let totalPages= data.total_pages;
+    if(data.total_pages>=500) {
+        totalPages = 500;
+   }
     return(
+        <>
         <div  className={categoryStyles['category-wrapper']}>
             {/*LOADING */}
              {!isLoaded && !error &&
@@ -30,10 +38,15 @@ const Category = ({ url, categoryType }:CategoryProps) => {
                 </div>
             }
            {/*MOVIES CONTAINER */}
-            {data && isLoaded && 
+            {data.results && isLoaded && 
+            <>
+            <div className={categoryStyles['total-pages-details']}>
+                <h3>  {data.total_results} results</h3>
+             </div>
             <div className={categoryStyles['movies-container']}>
-                {data.map( (movie) => (
-                    <Link 
+                
+                {data.results.map( (movie) => (
+                    <Link
                         reloadDocument  
                         to={`/${categoryType}/${movie.id}`} 
                         key={movie.id} 
@@ -41,9 +54,9 @@ const Category = ({ url, categoryType }:CategoryProps) => {
                     >
                         <div className={categoryStyles['movie-image-container']}>
                             {movie.poster_path==null ? (
-                                <img className={`${categoryStyles['placeholder-image']} ${categoryStyles['movie-image']}`} src='/images/placeholder-image.svg' alt="placeholder image" />     
+                                <img loading='lazy' className={`${categoryStyles['placeholder-image']} ${categoryStyles['movie-image']}`} src='/images/placeholder-image.svg' alt="placeholder image" />     
                             ):(
-                                <img className={categoryStyles['movie-image']} src={`${imagePathWidth500}${movie.poster_path}`} alt="" />     
+                                <img loading='lazy' className={categoryStyles['movie-image']} src={`${imagePathWidth500}${movie.poster_path}`} alt="" />     
                             )
                             }
                         </div>
@@ -58,19 +71,70 @@ const Category = ({ url, categoryType }:CategoryProps) => {
                     </Link>    
                 ))}
             </div>
+            
+            </>
             }
             { !isLoaded &&  error && 
                 <div className={categoryStyles['no-results-container']}>
                     <h3> Error </h3>
                 </div>    
             }
+            
             {/*NO RESULTS */}
-            {!data && isLoaded && 
+            {data.results!==undefined && data.results.length===0 && isLoaded && 
                 <div className={categoryStyles['no-results-container']}>
-                    <h3>No results</h3>
+                    <h3>NO RESULTS</h3>
                 </div>    
             }
+            {/* CATEGORY PAGES NAVIGATION */}
+            <div className={categoryStyles['pages-container']}>
+                <button
+                    title='First page'
+                    onClick={()=> setPage(1)}
+                >
+                    <ChevronDoubleLeftIcon/>
+                </button>
+
+                <button 
+                    title='Previous page'                
+                    onClick={()=> {
+                        if(data.page<=1)return;
+                        setPage(data.page-1);
+                        window.scrollTo(0, 0);
+                        }
+                    }  
+                >
+                    <ChevronLeftIcon/>
+                </button>  
+
+                <span>{`${data.page}/${totalPages}`}</span>
+
+                <button
+                    title='Next page'   
+                    onClick={()=> {
+                        if(data.page>=totalPages)return;
+                        setPage(data.page+1)
+                        window.scrollTo(0, 0)
+
+                    }}
+                >
+                    <ChevronRightIcon/>
+                </button>
+
+                <button
+                    title='Last page'   
+                    onClick={()=> {  
+                    if(data.page>=totalPages)return;
+                        setPage(totalPages);
+                        window.scrollTo(0, 0)
+                    }}
+                >
+                    <ChevronDoubleRightIcon/>
+                </button>
+            </div>
         </div>
+        </>
+
     )
 }
 export default Category;

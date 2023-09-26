@@ -21,7 +21,7 @@
 .movie-container>img {
     min-height: 100%;
     width: 100%;
-    min-width: 700px;
+    min-width: 1500px;
     max-height: 500px;
     overflow: hidden;
     position: absolute;
@@ -33,7 +33,7 @@
 .left {
     
     height: 100%;
-    flex-basis: 40%;
+    flex-basis: 45%;
     z-index: 1200;
     padding: 40px 10px;
     overflow: hidden;
@@ -144,11 +144,11 @@
 
 .genres-container {
     display: flex;
-    color:rgb(224, 224, 224)
-
+    color:rgb(224, 224, 224);
+    flex-wrap:wrap;
 }
 
-.detail .genres-container .genre {
+.genres-container .genre {
     padding: 3px;
     margin-right: 10px;
     font-weight: 300;
@@ -176,13 +176,15 @@
 @media (width<600px){     
     .rating {
         color:whitesmoke;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
     }
    .movie-container {    
         flex-direction: column-reverse;
+        justify-content: start;
+        gap:20px;
     }
     .image-container {
-        max-width: 200px;
+        max-width: 250px;
         margin: auto;
     }
     .left {
@@ -201,8 +203,8 @@
     }
     .rating-container {
         align-self: center;
-        min-width: 45px;
-        min-height: 45px;   
+        min-width: 55px;
+        min-height: 55px;   
         margin-top:10px;
         margin-right: 0;
     }

@@ -8,6 +8,7 @@ type Genre = {
     name: string;
 }
 type GenresListProps = {
+    setCategoryPageNumber: (value:number) => void;
     genresSelected: Genre[];
     setGenresSelected: (value:Genre[])=> void;
     genresList: any;
@@ -16,12 +17,14 @@ type GenresListProps = {
     isClosed: boolean;
     setIsClosed: (value:boolean) => void;
 }
-const GenresList = ({genresSelected, setGenresSelected, genresList, isLoaded, error, isClosed, setIsClosed   }:GenresListProps) => {
+const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, genresList, isLoaded, error, isClosed, setIsClosed   }:GenresListProps) => {
     const handleGenreSelection = (genre:Genre) => {
         if(genresSelected.includes(genre)){
             setGenresSelected(genresSelected.filter((genreInList)=> genreInList!==genre ))
+            setCategoryPageNumber(1);
         }else{
             setGenresSelected([...genresSelected, genre]);
+            setCategoryPageNumber(1);
         }
         console.log("GENRE LIST", genresSelected);
     }; 

@@ -56,7 +56,7 @@ const FiltersBar = ({ includeAdult, setIncludeAdult, sortByDescendedOrder, setSo
                     ))}        
                 </ul>
             </div>
-
+            
             }
         </div>                  
     )
