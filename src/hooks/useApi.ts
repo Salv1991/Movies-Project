@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 
 export const baseUrl = `https://api.themoviedb.org/3/`;
 
-type fetchedDataProps = {
+type results = {
     adult: boolean;
     gender?: number;
     known_for?: fetchedDataProps[];
@@ -26,19 +26,24 @@ type fetchedDataProps = {
     vote_count:number;
     profile_path:string | null;
 }
-
-export const useApi = (url:string) => {
-    const [data, setData] = useState<fetchedDataProps[]>([]);
-    const [isLoaded, setIsLoaded] =  useState(false);
+type fetchedDataProps = {
+    page: number;
+    results: results[];
+    total_pages: number;
+    total_results: number;
+}
+export const useApi = (url:string, categoryPageNumber:number, setCategoryPageNumber:(value:number) => void) => {
+    const [data, setData] = useState<fetchedDataProps>({page:0, results: [], total_pages:1, total_results:0});
+    const [isLoaded, setIsLoaded] =  useState<boolean>(false);
     const [error, setError] = useState(null);
     const  fetchData = async () => {
-        fetch(`https://api.themoviedb.org/3/${url}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
+        fetch(`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
         .then(response => response.json())
         .then(fetchedData => {
-            setData(fetchedData.results);
+            setData(fetchedData);
             setIsLoaded(true);
             console.log("fetched by useApi",fetchedData)
-            console.log(`URL`,`https://api.themoviedb.org/3/${url}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
+            console.log(`URL`,`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
         })
         .catch(err => {
             console.error(err);
@@ -47,11 +52,11 @@ export const useApi = (url:string) => {
     };
 
     useEffect(() => {
-        fetchData();        
+        fetchData();      
         console.log("data by useApi", data);
-      },[url]); 
+      },[url, categoryPageNumber]); 
       
-      return {data, isLoaded, error }
+      return {data, isLoaded, error, categoryPageNumber, setCategoryPageNumber }
 }
 
 type Genre = {

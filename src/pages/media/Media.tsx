@@ -23,9 +23,11 @@ type MediaProps = {
     mediaType:string;
     childType: CategoryType;
     setSelectedPage: (value:Pages)=> void;
+    categoryPageNumber: number;
+    setCategoryPageNumber: (value:number) => void;
 }
 
-const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
+const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, childType, mediaType}:MediaProps) => {
     const {id} = useParams();
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const imagePathWidth1280 = `https://image.tmdb.org/t/p/w1280/`;
@@ -51,15 +53,15 @@ const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
            
             {data && isLoaded &&
                 <div className={mediaStyles['movie-container']}>
-                    <img src={data.backdrop_path==null ? imagePathWidth1280+'/images/placeholder-backdrop.svg' : imagePathWidth1280+data.backdrop_path} alt="" />
+                    <img loading='lazy' src={data.backdrop_path==null ? imagePathWidth1280+'/images/placeholder-backdrop.svg' : imagePathWidth1280+data.backdrop_path} alt="" />
 
                     {/* LEFT SIDE */}
                     <div className={mediaStyles['left']}>
                         <div className={mediaStyles['image-container']}>
                             {data.poster_path ==null? (
-                                <img src='/images/placeholder-image.svg' alt="" /> 
+                                <img loading='lazy' src='/images/placeholder-image.svg' alt="" /> 
                             ): (
-                                <img src={`${imagePathWidth500}${data.poster_path}`} alt="" /> 
+                                <img loading='lazy' src={`${imagePathWidth500}${data.poster_path}`} alt="" /> 
                             )}
                         </div>
                     </div>
@@ -76,13 +78,11 @@ const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
 
                                 {/* DETAILS CONTAINER */}
                                 <div className={mediaStyles['movie-details-container']}>
-                                    <h2 className={mediaStyles['detail']}> 
-                                    <div  className={mediaStyles['genres-container']}>
-                                        {data.genres?.map((genre) => (
-                                            <p key={data.id} className={mediaStyles['genre']} >{genre.name}</p>
-                                        ))}
-                                    </div>
-                                    </h2>
+                                        <div  className={mediaStyles['genres-container']}>
+                                            {data.genres?.map((genre) => (
+                                                <p key={data.id} className={mediaStyles['genre']} >{genre.name}</p>
+                                            ))}
+                                        </div>
                                     {data.release_date &&
                                         <>
                                         <h2 className={mediaStyles['detail']}><CalendarIcon/><span>{data.release_date}</span></h2>
@@ -124,7 +124,7 @@ const Media = ({setSelectedPage, childType, mediaType}:MediaProps) => {
             {/* SIMILAR MOVIES SECTION */}
             <div>
                 <CategoryContainer header="SIMILAR TO THIS">
-                    <Category url={`${mediaType}/${id}/similar?language=en-US`}  categoryType={childType} />
+                    <Category categoryPageNumber={categoryPageNumber} setCategoryPageNumber={setCategoryPageNumber} url={`${mediaType}/${id}/similar?language=en-US`}  categoryType={childType} />
                 </CategoryContainer> 
             </div>
         </section>
