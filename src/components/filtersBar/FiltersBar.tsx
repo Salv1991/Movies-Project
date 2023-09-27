@@ -1,7 +1,9 @@
 //ICONS
 import { XMarkIcon } from '@heroicons/react/20/solid';
+
 //STYLES
 import filterBarStyles from './filtersBarStyles.module.css';
+
 //TYPES
 type Genre = {
     id: number;

@@ -1,11 +1,14 @@
 import { useState } from "react";
 //COMPONENTS
 import Category from "../category/Category";
+
 //STYLES
 import categoryStyles from '../../styles/categoryStyles.module.css';
+
 //ENUMS 
 import { CategoryType } from "../../enums/categoryType";
 import { UrlsPresets } from "../../enums/urlPresets.ts";
+
 //TYPES
 type CategoryContainerProps = {
     header: string;
@@ -20,7 +23,7 @@ type ButtonsAndCategoriesProps ={
     categoryPageNumber: number;
 }
 
-
+// COMPONENT #1 -------------------------------------------------------------------------------
 export const CategoryContainer = ({children, header,}:CategoryContainerProps) => {
     return(
         <div className={categoryStyles['category-container']}>
@@ -33,6 +36,7 @@ export const CategoryContainer = ({children, header,}:CategoryContainerProps) =>
 }
 
 
+// COMPONENT #2 ------------------------------------------------------------------------------
 export const ButtonsAndCategories = ({url1, url2, type1, type2 , categoryPageNumber, setCategoryPageNumber }:ButtonsAndCategoriesProps) => {
     const [indexId, setIndexId] = useState<number>(1);
     return(
@@ -63,8 +67,7 @@ export const ButtonsAndCategories = ({url1, url2, type1, type2 , categoryPageNum
                 }
                 {indexId===2 && 
                     <Category categoryPageNumber={categoryPageNumber} setCategoryPageNumber={setCategoryPageNumber} url={url2} categoryType={type2}  /> 
-                }
-               
+                } 
             </div>
         </>
     )
