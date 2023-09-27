@@ -30,14 +30,15 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
         <>
         <div  className={categoryStyles['category-wrapper']}>
             {/*LOADING */}
-             {!isLoaded && !error &&
-                <div className={categoryStyles['category-wrapper']}>
-                    <div >
-                        <LoadingSpinner />
-                    </div>
+            {!isLoaded && !error &&
+            <div className={categoryStyles['category-wrapper']}>
+                <div >
+                    <LoadingSpinner />
                 </div>
+            </div>
             }
-           {/*MOVIES CONTAINER */}
+
+            {/*MOVIES CONTAINER */}
             {data.results && isLoaded && 
             <>
             <div className={categoryStyles['total-pages-details']}>
@@ -61,12 +62,13 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                             }
                         </div>
                         <div className={categoryStyles['movie-details']}>
+                        <h3 className={categoryStyles['movie-title']}>{movie.title || movie.name || movie.original_title || movie.original_name || 'Name not found'}</h3>
+                            <p className={categoryStyles['movie-overview']}>{movie.overview===''? 'no summary available': movie.overview}</p>
                             <div className={categoryStyles['movie-ratings']}>
                                 <h3>{movie.vote_average.toFixed(1)}</h3>
                                 <div><StarIcon/></div>
                                 <span>{`(${movie.vote_count})`}</span>
                             </div>
-                            <h3 className={categoryStyles['movie-title']}>{movie.title || movie.name || movie.original_title || movie.original_name || 'Name not found'}</h3>
                         </div>
                     </Link>    
                 ))}

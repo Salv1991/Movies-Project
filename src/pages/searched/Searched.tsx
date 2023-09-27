@@ -63,7 +63,8 @@ const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:
                                 }
                             </div>
                             <div className={categoryStyles['movie-details']}>
-                                <h3 className={categoryStyles['movie-title']}>{search.name}</h3>
+                                <h3 className={categoryStyles['movie-title']}>{search.title || search.name || search.original_title || search.original_name || 'Name not found'}</h3>
+                                <p className={categoryStyles['movie-overview']}>{search.overview===''? 'no summary available': search.overview}</p>         
                             </div>
                         </Link>          
                         }
@@ -84,12 +85,13 @@ const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:
                                 }
                             </div>
                             <div className={categoryStyles['movie-details']}>
+                                <h3 className={categoryStyles['movie-title']}>{search.title || search.name || search.original_title || search.original_name || 'Name not found'}</h3>
+                                <p className={categoryStyles['movie-overview']}>{search.overview===''? 'no summary available': search.overview}</p>         
                                 <div className={categoryStyles['movie-ratings']}>
                                     <h3>{search.vote_average.toFixed(1)}</h3>
                                     <div><StarIcon/></div>
                                     <span>{`(${search.vote_count})`}</span>
                                 </div>
-                                <h3 className={categoryStyles['movie-title']}>{ search.name? search.name : 'No Available Title' }</h3>
                             </div>
                         </Link>
                         } 
@@ -111,12 +113,13 @@ const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:
                                 }
                             </div>
                             <div className={categoryStyles['movie-details']}>
+                                <h3 className={categoryStyles['movie-title']}>{search.title || search.name || search.original_title || search.original_name || 'Name not found'}</h3>
+                                <p className={categoryStyles['movie-overview']}>{search.overview===''? 'no summary available': search.overview}</p>         
                                 <div className={categoryStyles['movie-ratings']}>
                                     <h3>{search.vote_average.toFixed(1)}</h3>
                                     <div><StarIcon/></div>
                                     <span>{`(${search.vote_count})`}</span>
                                 </div>
-                                <h3 className={categoryStyles['movie-title']}>{ search.title || search.original_title}</h3>
                             </div>
                         </Link>
                         }

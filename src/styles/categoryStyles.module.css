@@ -111,36 +111,59 @@ font-weight: bold;
 }
 
 .movie-container {
-    flex-basis: 18%;
+    padding: 10px;
+    flex-basis: 31%;
+    max-width: 650px;
+    min-width: 300px;
+    background-color:#ebebeb;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 6px;
     margin-bottom: 10px;
+    margin-right: 20px;
+    box-shadow: rgba(61, 61, 61, 0.473) 0px 3px 12px;
+}
+.movie-container:hover {
+    
+    box-shadow: #ce0649ad 0px 3px 12px;
+
+}
+p.movie-overview {
+    min-height: 75px;
+    color: gray;
+    font-size: 1.1rem;
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 3;
 }
 
 .movie-image-container {
     min-width: 130px;
+    max-width: 130px;
     width: 100%;
     
 }
 
-.movie-title-container h2 {
+/* .movie-title-container h2 {
     font-size: clamp(.9rem, 2vw, 1.2rem); 
     border-left: 4px solid rgb(152, 6, 172);
     padding: .4rem 1rem;
     line-clamp: 2; 
-}
+} */
+
 .movie-details {
     width: 100%;
     min-width: 150px;
-    height: 7rem;
-    padding: 0px 5px;
+    height: 100%;
+    padding-left:10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    gap:5px;
+    justify-content: space-between;
+    gap:20px;
     background-color: rgba(0, 0, 0, 0);
     overflow: hidden;
 }
@@ -148,7 +171,7 @@ font-weight: bold;
     display: flex;
     justify-content: start;
     align-items: center;
-    font-size: clamp(1rem, 2vw, 1.35rem); 
+    font-size: clamp(.9rem, 2vw, 1.2rem); 
 }
 .movie-ratings h3 {
     color: rgb(59, 59, 59);
@@ -168,7 +191,12 @@ font-weight: bold;
 }
 
 .movie-title {
-    font-size: clamp(1.3rem, 2vw, 1.7rem); 
+    font-size: clamp(1.3rem, 2vw, 1.6rem); 
+    min-height: 30px;
+    max-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .no-results-container {
@@ -214,20 +242,21 @@ font-weight: bold;
     color:black;
     padding-inline: 20px;
 }
-@media (width<1200px){
+@media (width<1700px){
     .movie-container {
-        flex-basis: 23.5%;
+        flex-basis: 30%;
     }
 }
-@media (width<890px){  
+@media (width<1400px){
     .movie-container {
-        flex-basis: 32%;
+        flex-basis: 46%;
     }
 }
 
-@media (width<600px){
+
+@media (width<700px){
     .movie-container {
-        flex-basis: 47%;
+        flex-basis: 100%;
     }
 
 }

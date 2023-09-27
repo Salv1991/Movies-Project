@@ -5,4 +5,5 @@ export const enum  SidebarCategories {
     TopRated= `top-rated`,
     Celebrities= `celebrities`,
     Upcoming= `upcoming`,
+    Trending= `trending`
 }

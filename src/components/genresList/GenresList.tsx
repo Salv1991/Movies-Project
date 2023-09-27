@@ -1,8 +1,10 @@
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
+
 //ICONS
 import { ArrowDownIcon, ArrowRightIcon} from '@heroicons/react/20/solid';
 
+//TYPES
 type Genre = {
     id: number;
     name: string;
@@ -17,6 +19,7 @@ type GenresListProps = {
     isClosed: boolean;
     setIsClosed: (value:boolean) => void;
 }
+
 const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, genresList, isLoaded, error, isClosed, setIsClosed   }:GenresListProps) => {
     const handleGenreSelection = (genre:Genre) => {
         if(genresSelected.includes(genre)){
@@ -26,7 +29,6 @@ const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, g
             setGenresSelected([...genresSelected, genre]);
             setCategoryPageNumber(1);
         }
-        console.log("GENRE LIST", genresSelected);
     }; 
     return(
         <div className={sidebarStyles['genres-list-section']}>

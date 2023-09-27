@@ -15,7 +15,12 @@ const Banner = () => {
             <div className={bannerStyles['banner-input-container']}>
                 <h2>Millions of movies, TV shows and people to discover. Explore now.</h2>
                 <form onSubmit={(e)=>handleSubmit(e)}>
-                    <input onChange={(e)=>setQuery(e.target.value)} className={bannerStyles['banner-input']} placeholder='Search for movies...' type="text" />
+                    <input 
+                        onChange={(e)=>setQuery(e.target.value)} 
+                        className={bannerStyles['banner-input']} 
+                        placeholder='Search for movies, series, actors...' 
+                        type="text" 
+                    />
                 </form>
 
             </div>

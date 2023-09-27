@@ -14,6 +14,7 @@ import Sidebar from '../components/sidebar/Sidebar';
 import { Pages } from '../enums/pages';
 import {useEffect} from 'react';
 import Banner from './components/banner/Banner';
+
 //TYPES
 type HomeProps= {
     setSelectedPage:(value:Pages) => void;
@@ -28,11 +29,13 @@ const Home = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isAbo
     useEffect(()=> {
         setSelectedPage(Pages.Homepage);
         setSidebarCategorySelected(SidebarCategories.PlayingNow);
+        setCategoryPageNumber(1);
     },[]);
-
     return(
         <section className={` ${isAboveMediumScreens? sidebarStyles['page-content-with-sidebar'] : sidebarStyles['responsive-content']}`}>
             <div className={sidebarStyles.content}>
+
+                {/* SIDEBAR */}
                 <Sidebar isAboveMediumScreens={isAboveMediumScreens}  >
                     <ul className={sidebarStyles['sidebar-ul']}>
                         <li 
@@ -43,6 +46,16 @@ const Home = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isAbo
                             className={`${sidebarStyles['sidebar-li']} ${sidebarCategorySelected===SidebarCategories.PlayingNow?sidebarStyles['isActive']:''} `}
                         >
                             <h2>Playing Now</h2>
+                        </li>
+                        
+                        <li 
+                            onClick={() => {
+                                setSidebarCategorySelected(SidebarCategories.Trending);
+                                setCategoryPageNumber(1);
+                            }}
+                            className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.Trending?sidebarStyles['isActive']:''}`}
+                        >
+                            <h2>Trending Today</h2>
                         </li>
 
                         <li 
@@ -55,18 +68,16 @@ const Home = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isAbo
                             <h2>Popular</h2>
                         </li>
 
-                        <li 
-                            onClick={() => {
-                                setSidebarCategorySelected(SidebarCategories.TopRated);
-                                setCategoryPageNumber(1);
-                            }}
-                            className={`${sidebarStyles['sidebar-li']}  ${sidebarCategorySelected===SidebarCategories.TopRated?sidebarStyles['isActive']:''}`}
-                        >
-                            <h2>Top Rated</h2>
-                        </li>
+                       
                     </ul>
                 </Sidebar>
+                {/* MAIN CONTENT*/}
+
+                
+                {/* BANNER */}
                 <Banner />
+
+                {/* ACTIVE CATEGORY */}
                 {sidebarCategorySelected===SidebarCategories.PlayingNow && 
                     <CategoryContainer header='PLAYING NOW'  >       
                         <ButtonsAndCategories 
@@ -79,11 +90,11 @@ const Home = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isAbo
                         />
                     </CategoryContainer>
                 } 
-                {sidebarCategorySelected===SidebarCategories.TopRated && 
-                <CategoryContainer header='TOP RATED'>       
+                {sidebarCategorySelected===SidebarCategories.Trending && 
+                <CategoryContainer header='TRENDING TODAY'>       
                     <ButtonsAndCategories 
-                        url1= {UrlsPresets.MovieTopRated}
-                        url2= {UrlsPresets.SeriesTopRated}
+                        url1= {UrlsPresets.TrendingMovieDay}
+                        url2= {UrlsPresets.TrendingTVSeriesDay}
                         type1={CategoryType.Movie}
                         type2={CategoryType.Series}
                         categoryPageNumber={categoryPageNumber}
