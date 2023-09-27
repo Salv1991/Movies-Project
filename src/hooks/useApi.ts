@@ -1,7 +1,5 @@
 import {useState, useEffect} from 'react';
 
-export const baseUrl = `https://api.themoviedb.org/3/`;
-
 type results = {
     adult: boolean;
     gender?: number;
@@ -42,18 +40,14 @@ export const useApi = (url:string, categoryPageNumber:number, setCategoryPageNum
         .then(fetchedData => {
             setData(fetchedData);
             setIsLoaded(true);
-            console.log("fetched by useApi",fetchedData)
-            console.log(`URL`,`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
         })
         .catch(err => {
-            console.error(err);
-            setError(error);
+            setError(err);
         });
     };
 
     useEffect(() => {
         fetchData();      
-        console.log("data by useApi", data);
       },[url, categoryPageNumber]); 
       
       return {data, isLoaded, error, categoryPageNumber, setCategoryPageNumber }
@@ -150,19 +144,14 @@ export const useApiSearchById = (url:string) => {
         .then(fetchedData => {
             setData(fetchedData);
             setIsLoaded(true); 
-            console.log("fetched searchbyID",fetchedData)
-            console.log(`this: https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)
         })
         .catch(err => {
-            console.log("ERRORRRR:", error)
-            console.error("ERRORRRR:",err);
-            setError(error);
+            setError(err);
         });
     };
 
     useEffect(() => {
         fetchData();        
-        console.log("data", data);
       },[]); 
       
       return {data, isLoaded, error }
