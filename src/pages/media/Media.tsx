@@ -59,9 +59,9 @@ const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, chil
                     <div className={mediaStyles['left']}>
                         <div className={mediaStyles['image-container']}>
                             {data.poster_path ==null? (
-                                <img loading='lazy' src='/images/placeholder-image.svg' alt="" /> 
+                                <img loading='lazy' src='/images/placeholder-image.svg' alt="placeholder img" /> 
                             ): (
-                                <img loading='lazy' src={`${imagePathWidth500}${data.poster_path}`} alt="" /> 
+                                <img loading='lazy' src={`${imagePathWidth500}${data.poster_path}`} alt={`${data.name} img`} /> 
                             )}
                         </div>
                     </div>
@@ -80,7 +80,7 @@ const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, chil
                                 <div className={mediaStyles['movie-details-container']}>
                                         <div  className={mediaStyles['genres-container']}>
                                             {data.genres?.map((genre) => (
-                                                <p key={data.id} className={mediaStyles['genre']} >{genre.name}</p>
+                                                <p key={genre.id} className={mediaStyles['genre']} >{genre.name}</p>
                                             ))}
                                         </div>
                                     {data.release_date &&

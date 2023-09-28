@@ -1,19 +1,23 @@
 import {  useState, useEffect } from 'react';
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
+
 //ENUMS
 import { CategoryType } from '../../enums/categoryType';
 import { MediaType } from '../../enums/mediaType';
 import { Pages } from '../../enums/pages';
 //HOOKS
+
 import { useGenreListApi } from '../../hooks/useGenreListApi';
 //COMPONENTS
+
 import Category from '../../components/category/Category';
 import { CategoryContainer } from '../../components/categoryContainer/CategoryContainer';
 import GenresList from '../../components/genresList/GenresList';
 import Sidebar from '../../components/sidebar/Sidebar';
 import FiltersBar from '../../components/filtersBar/FiltersBar';
 //TYPES
+
 type Genre = {
     id: number;
     name: string;
@@ -33,7 +37,7 @@ const Movies = ({categoryPageNumber, setCategoryPageNumber , setSelectedPage, is
     const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
     const [sortByQuery, setSortByQuery] = useState<string>('popularity');
     const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
-    const [ filteredUrl, setFilteredUrl] = useState<string>(`discover/movie?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
+    const [ filteredUrl, setFilteredUrl] = useState<string>(`discover/movie?include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
 
     useEffect(() => {
         setSelectedPage(Pages.Movies);
@@ -45,7 +49,7 @@ const Movies = ({categoryPageNumber, setCategoryPageNumber , setSelectedPage, is
         genresSelected.forEach(genre => {
             ids+=genre.id+',';
         })  
-        setFilteredUrl(`discover/movie?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
+        setFilteredUrl(`discover/movie?include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'': ids.slice(0,-1)}`);
     },[sortByDescendedOrder, sortByQuery, genresSelected, includeAdult]);
     
     return (

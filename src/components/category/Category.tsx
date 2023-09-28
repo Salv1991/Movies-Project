@@ -20,6 +20,7 @@ type CategoryProps = {
 
 
 const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber }:CategoryProps) => {
+    const imagePathWidth154 = `https://image.tmdb.org/t/p/w154/`;
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const {data, isLoaded, error, setCategoryPageNumber: setPage} = useApi(url, categoryPageNumber, setCategoryPageNumber);
     let totalPages= data.total_pages;
@@ -57,7 +58,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                             {movie.poster_path==null ? (
                                 <img loading='lazy' className={`${categoryStyles['placeholder-image']} ${categoryStyles['movie-image']}`} src='/images/placeholder-image.svg' alt="placeholder image" />     
                             ):(
-                                <img loading='lazy' className={categoryStyles['movie-image']} src={`${imagePathWidth500}${movie.poster_path}`} alt="" />     
+                                <img loading='lazy' className={categoryStyles['movie-image']} src={`${imagePathWidth154}${movie.poster_path}`} alt='movie image' />     
                             )
                             }
                         </div>

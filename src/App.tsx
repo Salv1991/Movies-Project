@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RootLayout from "./layouts/rootLayout/RootLayout";
 
 //PAGES
-import Home from "./home/Home";
+import Home from "./pages/home/Home.tsx";
 import Media from "./pages/media/Media";
 import Movies from "./pages/movies/Movies.tsx";
 import Searched from "./pages/searched/Searched.tsx";
