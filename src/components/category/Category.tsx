@@ -21,7 +21,6 @@ type CategoryProps = {
 
 const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber }:CategoryProps) => {
     const imagePathWidth154 = `https://image.tmdb.org/t/p/w154/`;
-    const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const {data, isLoaded, error, setCategoryPageNumber: setPage} = useApi(url, categoryPageNumber, setCategoryPageNumber);
     let totalPages= data.total_pages;
     if(data.total_pages>=500) {
