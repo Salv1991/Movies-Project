@@ -1,17 +1,17 @@
 //COMPONENTS
-import {CategoryContainer, ButtonsAndCategories} from '../components/categoryContainer/CategoryContainer';
+import {CategoryContainer, ButtonsAndCategories} from '../../components/categoryContainer/CategoryContainer';
 
 //STYLES
-import sidebarStyles from '../styles/sideBarStyles.module.css';
+import sidebarStyles from '../../styles/sideBarStyles.module.css';
 
 //ENUMS
-import { SidebarCategories } from '../enums/sidebarCategories';
-import { CategoryType } from '../enums/categoryType'
-import { UrlsPresets } from '../enums/urlPresets';
+import { SidebarCategories } from '../../enums/sidebarCategories';
+import { CategoryType } from '../../enums/categoryType'
+import { UrlsPresets } from '../../enums/urlPresets';
 
 //HOOKS
-import Sidebar from '../components/sidebar/Sidebar';
-import { Pages } from '../enums/pages';
+import Sidebar from '../../components/sidebar/Sidebar';
+import { Pages } from '../../enums/pages';
 import {useEffect} from 'react';
 import Banner from './components/banner/Banner';
 

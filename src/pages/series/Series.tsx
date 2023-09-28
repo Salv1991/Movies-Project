@@ -35,7 +35,7 @@ const Series = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isA
     const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
     const [sortByQuery, setSortByQuery] = useState<string>('popularity');   
     const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
-    const [ filteredUrl, setFilteredUrl] = useState(`discover/tv?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
+    const [ filteredUrl, setFilteredUrl] = useState(`discover/tv?include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
   
     useEffect(() => {
         setSelectedPage(Pages.TVSeries);
@@ -46,7 +46,7 @@ const Series = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isA
         genresSelected.forEach(genre => {
             ids+=genre.id+',';
         })
-        setFilteredUrl(`discover/tv?include_adult=false&include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
+        setFilteredUrl(`discover/tv?include_video=false&language=en-US&page=${categoryPageNumber}&include_adult=${includeAdult}&sort_by=${sortByQuery}.${sortByDescendedOrder?'desc':'asc'}${genresSelected.length===0?'':ids.slice(0,-1)}`);
     },[sortByDescendedOrder, sortByQuery, genresSelected, includeAdult]);
     
     return (
