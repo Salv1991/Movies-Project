@@ -20,7 +20,6 @@ const RootLayout = ({selectedPage}:RootLayout) => {
             <main >      
                 <Outlet />
             </main>
-            <Footer />
         </>
     )
 }
