@@ -30,7 +30,7 @@ type fetchedDataProps = {
     total_pages: number;
     total_results: number;
 }
-export const useApi = (url:string, categoryPageNumber:number, setCategoryPageNumber:(value:number) => void) => {
+export const useApi = (url:string, categoryPageNumber:number) => {
     const [data, setData] = useState<fetchedDataProps>({page:0, results: [], total_pages:1, total_results:0});
     const [isLoaded, setIsLoaded] =  useState<boolean>(false);
     const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ export const useApi = (url:string, categoryPageNumber:number, setCategoryPageNum
         fetchData();      
       },[url, categoryPageNumber]); 
       
-      return {data, isLoaded, error, categoryPageNumber, setCategoryPageNumber }
+      return {data, isLoaded, error, categoryPageNumber}
 }
 
 type Genre = {
