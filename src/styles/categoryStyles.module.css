@@ -6,7 +6,7 @@
     padding: 0px 20px;
 } 
 .header-container {
-    font-size: clamp(1.2rem, 2vw, 1.9rem);
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
     display: flex;
     justify-content: space-between;
     padding: .9rem 0rem;
@@ -62,7 +62,7 @@
 color: rgb(58, 58, 58);
 margin-bottom: 20px;
 padding:5px;
-font-size: clamp(.8rem, 2vw, 1.3rem);
+font-size: clamp(1rem, 2vw, 1.3rem);
 }
 
 .isSelected {
