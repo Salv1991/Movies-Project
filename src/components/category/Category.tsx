@@ -6,8 +6,7 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import {ChevronRightIcon, ChevronDoubleRightIcon, ChevronLeftIcon, ChevronDoubleLeftIcon} from '@heroicons/react/20/solid';
 //ENUMS
 import { CategoryType } from '../../enums/categoryType';
-//HOOKS
-import { useApi } from '../../hooks/useApi';
+
 //COMPONENTS
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { useQuery } from 'react-query';
