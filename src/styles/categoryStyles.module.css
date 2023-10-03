@@ -267,7 +267,10 @@ p.movie-overview {
     }
 
     .movie-container {
-        flex-basis: 100%;
+        width: 100%;
+        min-width: 180px;
+        flex-direction: column;
+        gap:10px;
     }
 
 }
