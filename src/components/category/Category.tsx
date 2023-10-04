@@ -10,6 +10,7 @@ import { CategoryType } from '../../enums/categoryType';
 //COMPONENTS
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { useQuery } from 'react-query';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 //TYPES
 type CategoryProps = {
     url: string;
@@ -41,7 +42,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
      
     return(
         <>
-        <div  className={categoryStyles['category-wrapper']}>
+        <div id='category-wrapper' className={categoryStyles['category-wrapper']}>
             {/*LOADING */}
             {status ==='loading' && 
             <div className={categoryStyles['category-wrapper']}>
@@ -92,49 +93,59 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                 {/* CATEGORY PAGES NAVIGATION */}
                 
                 <div className={categoryStyles['pages-container']}>
-                    <button
-                        title='First page'
-                        onClick={()=> setCategoryPageNumber(1)}
-                    >
-                        <ChevronDoubleLeftIcon/>
-                    </button>
+                    <div className={categoryStyles['pages-nav-buttons']}>
 
-                    <button 
-                        title='Previous page'                
-                        onClick={()=> {
-                            if(data.page<=1)return;
-                            setCategoryPageNumber(data.page-1);
-                            window.scrollTo(0, 0);
+                        
+                        <AnchorLink 
+                                href='#category-wrapper' 
+                                offset={240}
+                                title='First page'
+                                onClick={()=> setCategoryPageNumber(1)}
+                            >
+                                <ChevronDoubleLeftIcon/>
+                        </AnchorLink>
+
+                        <AnchorLink  
+                            href='#category-wrapper' 
+                            offset={240}
+                            title='Previous page'                
+                            onClick={()=> {
+                                if(data.page<=1)return;
+                                setCategoryPageNumber(data.page-1);
+                                }
+                            }  
+                            >
+                                <ChevronLeftIcon/>
+                        </AnchorLink>
+
+                        <span>{`${data.page}/${totalPagesCounter()}`}</span>
+
+                        <AnchorLink  
+                            href='#category-wrapper' 
+                            offset={240}
+                            title='Next page'   
+                            onClick={()=> {
+                                if(data.page>=totalPagesCounter())return;
+                                setCategoryPageNumber(data.page+1)
+                            }}
+                            >
+                                <ChevronRightIcon/>
+                        </AnchorLink>
+
+                        <AnchorLink  
+                            href='#category-wrapper' 
+                            offset={240}                             
+                            title='Last page'   
+                            onClick={()=> {  
+                                if(data.page>=totalPagesCounter())return;
+                                setCategoryPageNumber(totalPagesCounter());
+                                }
                             }
-                        }  
-                    >
-                        <ChevronLeftIcon/>
-                    </button>  
+                            >
+                                <ChevronDoubleRightIcon/>
+                        </AnchorLink>
 
-                    <span>{`${data.page}/${totalPagesCounter()}`}</span>
-
-                    <button
-                        title='Next page'   
-                        onClick={()=> {
-                            if(data.page>=totalPagesCounter())return;
-                            setCategoryPageNumber(data.page+1)
-                            window.scrollTo(0, 0)
-
-                        }}
-                    >
-                        <ChevronRightIcon/>
-                    </button>
-
-                    <button
-                        title='Last page'   
-                        onClick={()=> {  
-                        if(data.page>=totalPagesCounter())return;
-                        setCategoryPageNumber(totalPagesCounter());
-                            window.scrollTo(0, 0)
-                        }}
-                    >
-                        <ChevronDoubleRightIcon/>
-                    </button>
+                    </div>
                 </div>
                 </>
             }

@@ -242,6 +242,14 @@ p.movie-overview {
     color:black;
     padding-inline: 20px;
 }
+.pages-nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
 @media (width<1700px){
     .movie-container {
         flex-basis: 30%;
