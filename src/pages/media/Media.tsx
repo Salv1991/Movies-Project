@@ -44,10 +44,8 @@ const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, chil
     return (
         <section className={mediaStyles['movie-page-section']}>
             {!isLoaded  && !error && 
-                <div className={mediaStyles['movie-container']}>
-                    <div >
-                        <LoadingSpinner />
-                    </div>
+                <div >
+                    <LoadingSpinner />
                 </div>
             }
            

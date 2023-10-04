@@ -7,10 +7,11 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    background-color: rgba(160, 160, 160, 0);
 }
 .spinner-container h3 {
-    color :#ffffffa9;
-    font-size:1.5rem;
+  color: #ca176b;
+  font-size:1.5rem;
 }
 .lds-roller {
     display: inline-block;
