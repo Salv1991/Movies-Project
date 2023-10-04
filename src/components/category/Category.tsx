@@ -98,7 +98,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                         
                         <AnchorLink 
                                 href='#category-wrapper' 
-                                offset={240}
+                                offset={200}
                                 title='First page'
                                 onClick={()=> setCategoryPageNumber(1)}
                             >
@@ -107,7 +107,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
 
                         <AnchorLink  
                             href='#category-wrapper' 
-                            offset={240}
+                            offset={200}
                             title='Previous page'                
                             onClick={()=> {
                                 if(data.page<=1)return;
@@ -122,7 +122,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
 
                         <AnchorLink  
                             href='#category-wrapper' 
-                            offset={240}
+                            offset={200}
                             title='Next page'   
                             onClick={()=> {
                                 if(data.page>=totalPagesCounter())return;
@@ -134,7 +134,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
 
                         <AnchorLink  
                             href='#category-wrapper' 
-                            offset={240}                             
+                            offset={200}                             
                             title='Last page'   
                             onClick={()=> {  
                                 if(data.page>=totalPagesCounter())return;
