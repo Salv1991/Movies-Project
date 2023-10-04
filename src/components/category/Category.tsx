@@ -53,7 +53,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
             }
 
             {/*MOVIES CONTAINER */}
-            {status==='success'  && 
+            {status==='success'  && data.results.length>0 &&
                 <>
                 <div className={categoryStyles['total-pages-details']}>
                     <h3>  {data.total_results} results</h3>
