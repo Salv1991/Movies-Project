@@ -13,14 +13,13 @@ type GenresListProps = {
     setCategoryPageNumber: (value:number) => void;
     genresSelected: Genre[];
     setGenresSelected: (value:Genre[])=> void;
-    genresList: any;
-    isLoaded:boolean;
-    error: any;
+    genreData: {genres:Genre[]};
+    status: "idle" | "error" | "loading" | "success";
     isClosed: boolean;
     setIsClosed: (value:boolean) => void;
 }
 
-const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, genresList, isLoaded, error, isClosed, setIsClosed   }:GenresListProps) => {
+const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, genreData, status, isClosed, setIsClosed   }:GenresListProps) => {
     const handleGenreSelection = (genre:Genre) => {
         if(genresSelected.includes(genre)){
             setGenresSelected(genresSelected.filter((genreInList)=> genreInList!==genre ))
@@ -32,12 +31,12 @@ const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, g
     }; 
     return(
         <div className={sidebarStyles['genres-list-section']}>
-            {isLoaded && !error && 
+            {status==='success'  && 
             <>
             <button onClick={() => setIsClosed(!isClosed)}>Genres{!isClosed?<ArrowDownIcon/>:<ArrowRightIcon/>}</button>
             <div className={` ${isClosed? sidebarStyles['hidden']: sidebarStyles['genres-list-container']}`}>
                 <ul className={` ${ isClosed? sidebarStyles['hidden'] :sidebarStyles['genres-list']} `}>
-                    {genresList.map((genre:Genre) => (
+                    {genreData.genres.map((genre:Genre) => (
                         <li 
                             key={genre.id} 
                             onClick={() => {
@@ -52,7 +51,7 @@ const GenresList = ({setCategoryPageNumber, genresSelected, setGenresSelected, g
             </div>    
             </>
             }
-            {!isLoaded  || error && 
+            {status==='error' && 
                 <div> Error</div>
             }       
         </div>

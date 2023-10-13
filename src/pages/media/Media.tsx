@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import {useEffect} from 'react';
+import { useQuery } from "react-query";
+
 //ICONS
 import { CalendarIcon, ClockIcon } from "@heroicons/react/20/solid";
 
@@ -10,9 +12,6 @@ import mediaStyles from './movieStyles.module.css';
 import Category from "../../components/category/Category";
 import { CategoryContainer } from "../../components/categoryContainer/CategoryContainer";
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
-
-//HOOKS
-import { useApiSearchById } from "../../hooks/useApi";
 
 //ENUMS
 import { CategoryType } from "../../enums/categoryType";
@@ -26,12 +25,21 @@ type MediaProps = {
     categoryPageNumber: number;
     setCategoryPageNumber: (value:number) => void;
 }
+type Genre = {
+    id: number;
+    name: string;
+}
 
 const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, childType, mediaType}:MediaProps) => {
     const {id} = useParams();
+    const url = `${mediaType}/${id}`;
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     const imagePathWidth1280 = `https://image.tmdb.org/t/p/w1280/`;
-    const{ data, isLoaded, error} = useApiSearchById(`${mediaType}/${id}`);
+    const {data, status } = useQuery(['category', url], async () => {
+        const response = await fetch(`https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`);      
+        return response.json();
+    });
+    console.log("DATA FROM QUERY MEDIA", data)
     useEffect( () => {
         if(childType === CategoryType.Movie){
             setSelectedPage(Pages.Movies)
@@ -43,13 +51,13 @@ const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, chil
     })
     return (
         <section className={mediaStyles['movie-page-section']}>
-            {!isLoaded  && !error && 
+            {status==='loading'  &&  
                 <div >
                     <LoadingSpinner />
                 </div>
             }
            
-            {data && isLoaded &&
+            { status==='success' && data &&
                 <div className={mediaStyles['movie-container']}>
                     <img loading='lazy' src={data.backdrop_path==null ? imagePathWidth1280+'/images/placeholder-backdrop.svg' : imagePathWidth1280+data.backdrop_path} alt="" />
 
@@ -77,7 +85,7 @@ const Media = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, chil
                                 {/* DETAILS CONTAINER */}
                                 <div className={mediaStyles['movie-details-container']}>
                                         <div  className={mediaStyles['genres-container']}>
-                                            {data.genres?.map((genre) => (
+                                            {data.genres?.map((genre:Genre) => (
                                                 <p key={genre.id} className={mediaStyles['genre']} >{genre.name}</p>
                                             ))}
                                         </div>

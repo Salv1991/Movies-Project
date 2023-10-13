@@ -18,17 +18,42 @@ type CategoryProps = {
     categoryPageNumber: number;
     setCategoryPageNumber:(value:number) => void;
 }
-
+type Results = {
+    adult: boolean;
+    gender?: number;
+    known_for?: FetchedDataProps[];
+    known_for_department?:string;
+    backdrop_path: string;
+    genre_ids:number[];
+    first_air_date?: string;
+    media_type?: string;
+    id: number;
+    original_language: string
+    original_title?: string
+    original_name?: string
+    name?:string
+    overview: string
+    popularity: number
+    poster_path:string | null;
+    release_date:string;
+    title:string;
+    video: boolean;
+    vote_average: number;
+    vote_count:number;
+    profile_path:string | null;
+}
+type FetchedDataProps = {
+    page: number;
+    results: Results[];
+    total_pages: number;
+    total_results: number;
+}
 
 const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber }:CategoryProps) => {
     let totalPages= 0;
-
-    const imagePathWidth154 = `https://image.tmdb.org/t/p/w154/`;
-/*     const {data, isLoaded, error} = useApi(url, categoryPageNumber);
- */    
- 
+    const imagePathWidth154 = `https://image.tmdb.org/t/p/w154/`; 
     const {data, status } = useQuery(['category', url, categoryPageNumber], async () => {
-        const response = await fetch(`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)        
+        const response = await fetch(`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`);      
         return response.json();
     });
     
@@ -60,7 +85,7 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                 </div>
                 <div className={categoryStyles['movies-container']}>
                     
-                    {data.results.map( (movie:any) => (
+                    {data.results.map( (movie:Results) => (
                         <Link
                             reloadDocument  
                             to={`/${categoryType}/${movie.id}`} 
@@ -87,11 +112,8 @@ const Category = ({ url, categoryType, categoryPageNumber, setCategoryPageNumber
                         </Link>    
                     ))}
                 </div>
-                
-            
-                    
+                       
                 {/* CATEGORY PAGES NAVIGATION */}
-                
                 <div className={categoryStyles['pages-container']}>
                     <div className={categoryStyles['pages-nav-buttons']}>
 

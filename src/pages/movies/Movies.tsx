@@ -1,4 +1,6 @@
 import {  useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
+
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
 
@@ -6,9 +8,7 @@ import sidebarStyles from '../../styles/sideBarStyles.module.css';
 import { CategoryType } from '../../enums/categoryType';
 import { MediaType } from '../../enums/mediaType';
 import { Pages } from '../../enums/pages';
-//HOOKS
 
-import { useGenreListApi } from '../../hooks/useGenreListApi';
 //COMPONENTS
 
 import Category from '../../components/category/Category';
@@ -31,9 +31,13 @@ type MoviesProps = {
 
 const Movies = ({categoryPageNumber, setCategoryPageNumber , setSelectedPage, isAboveMediumScreens}:MoviesProps) => {
     let ids = '&with_genres=';
+    let genreType = MediaType.Movie;
     const [includeAdult, setIncludeAdult] = useState<boolean>(false);
     const [isClosed, setIsClosed]  = useState<boolean>(false);
-    const {data:genresList, isLoaded, error} = useGenreListApi(MediaType.Movie);
+    const {data:genreData, status } = useQuery(['genresList', genreType], async () => {
+        const response = await  fetch(`https://api.themoviedb.org/3/genre/${genreType}/list?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`);   
+        return response.json();
+    }); 
     const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
     const [sortByQuery, setSortByQuery] = useState<string>('popularity');
     const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
@@ -62,9 +66,8 @@ const Movies = ({categoryPageNumber, setCategoryPageNumber , setSelectedPage, is
                         setCategoryPageNumber={setCategoryPageNumber}
                         genresSelected= {genresSelected}
                         setGenresSelected= {setGenresSelected}
-                        isLoaded={isLoaded}
-                        error={error}
-                        genresList={genresList}
+                        status = {status}
+                        genreData={genreData}
                         isClosed={isClosed} 
                         setIsClosed={setIsClosed}            
                     />            
