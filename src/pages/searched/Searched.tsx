@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import {useEffect} from 'react';
+import { useQuery } from "react-query";
 
 //ENUMS
 import { Pages } from "../../enums/pages";
@@ -7,9 +8,6 @@ import { Pages } from "../../enums/pages";
 //STYLES
 import searchedStyles from './searchedStyles.module.css';
 import categoryStyles from '../../styles/categoryStyles.module.css';
-
-//HOOKS
-import { useApi } from "../../hooks/useApi";
 
 //ICONS
 import { StarIcon } from "@heroicons/react/20/solid";
@@ -24,26 +22,60 @@ type  SearchedProps = {
     categoryPageNumber: number;
     setCategoryPageNumber: (value:number) => void;
 }
+type Results = {
+    adult: boolean;
+    gender?: number;
+    known_for?: FetchedDataProps[];
+    known_for_department?:string;
+    backdrop_path: string;
+    genre_ids:number[];
+    first_air_date?: string;
+    media_type?: string;
+    id: number;
+    original_language: string
+    original_title?: string
+    original_name?: string
+    name?:string
+    overview: string
+    popularity: number
+    poster_path:string | null;
+    release_date:string;
+    title:string;
+    video: boolean;
+    vote_average: number;
+    vote_count:number;
+    profile_path:string | null;
+}
+type FetchedDataProps = {
+    page: number;
+    results: Results[];
+    total_pages: number;
+    total_results: number;
+}
 
 const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:SearchedProps) => {
     const{query} = useParams();
+    const url = `search/multi?query=${query}`;
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
-    const{data, isLoaded, error} = useApi(`search/multi?query=${query}`, categoryPageNumber);
     useEffect(() => {
         setSelectedPage(Pages.None);
         setCategoryPageNumber(1);
-    },[]);
-   
+    },[]); 
+
+    const {data, status } = useQuery(['category', url, categoryPageNumber], async () => {
+        const response = await fetch(`https://api.themoviedb.org/3/${url}&page=${categoryPageNumber}&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`);      
+        return response.json();
+    });
+
     console.log("searchedData:", data)
     return(
         <section className={searchedStyles['movie-page-section']}>
             <CategoryContainer header={`Search results for: '${query}'`}>
 
             <div  className={categoryStyles['category-wrapper']}>
-            {data && isLoaded && 
-            
+            {status==='success' && data.results.length>0 &&       
                 <div className={categoryStyles['movies-container']}>
-                    {data.results.map( (search) => (
+                    {data.results.map((search:Results) => (
                         <>
                         
                         {/* PERSON */}
@@ -129,13 +161,13 @@ const Searched = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage }:
                 </div>
             }
 
-            {data.results.length===0 && isLoaded && 
+            {status==='success' && data.results.length===0 &&  
                 <div className={categoryStyles['no-results-container']}>
                     <h3>No results</h3>
                 </div>    
             }
-            {error && 
-                <div>{error}</div>
+            {status==='error' && 
+                <div>Error fetching data</div>
             }
         </div>
             </CategoryContainer>

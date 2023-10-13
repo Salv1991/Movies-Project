@@ -1,12 +1,14 @@
 import {  useState, useEffect} from 'react';
+import { useQuery } from 'react-query';
+
 //STYLES
 import sidebarStyles from '../../styles/sideBarStyles.module.css';
+
 //ENUMS
 import { CategoryType } from '../../enums/categoryType';
 import { Pages } from '../../enums/pages';
 import { MediaType } from '../../enums/mediaType';
-//HOOKS
-import { useGenreListApi } from '../../hooks/useGenreListApi';
+
 //COMPONENTS
 import FiltersBar from '../../components/filtersBar/FiltersBar';
 import Category from '../../components/category/Category';
@@ -29,9 +31,13 @@ type SeriesProps = {
 
 const Series = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isAboveMediumScreens }:SeriesProps) => {
     let ids = '&with_genres=';
+    let genreType = MediaType.TV;
     const[includeAdult, setIncludeAdult] = useState<boolean>(false);
     const [isClosed, setIsClosed]  = useState<boolean>(false);
-    const{ data:genresList, isLoaded, error} = useGenreListApi(MediaType.TV);
+    const {data:genreData, status } = useQuery(['genresList', genreType], async () => {
+        const response = await  fetch(`https://api.themoviedb.org/3/genre/${genreType}/list?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`);   
+        return response.json();
+    }); 
     const [sortByDescendedOrder, setSortByDescendedOrder] = useState<boolean>(true);
     const [sortByQuery, setSortByQuery] = useState<string>('popularity');   
     const [genresSelected, setGenresSelected] = useState<Genre[]>([]);
@@ -59,9 +65,8 @@ const Series = ({categoryPageNumber, setCategoryPageNumber, setSelectedPage, isA
                         setCategoryPageNumber={setCategoryPageNumber}
                         genresSelected= {genresSelected}
                         setGenresSelected= {setGenresSelected}
-                        isLoaded={isLoaded}
-                        error={error}
-                        genresList={genresList}
+                        status = {status}
+                        genreData={genreData}
                         isClosed={isClosed} 
                         setIsClosed={setIsClosed} 
                    />

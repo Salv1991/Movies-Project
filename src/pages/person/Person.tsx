@@ -1,9 +1,7 @@
 import { useParams } from "react-router-dom";
+import { useQuery } from 'react-query';
 //STYLES
 import mediaStyles from '../media/movieStyles.module.css';
-
-//HOOKS
-import { useApiSearchById } from "../../hooks/useApi";
 
 //COMPONENTS
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
@@ -12,23 +10,34 @@ import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 type PersonProps = {
    
 }
+type Genre = {
+    id: number;
+    name: string;
+}
 
 const Person = ({}:PersonProps) => {
+    let categoryPageNumber = 1;
     const {id} = useParams();
+    let url = `person/${id}`;
     const imagePathWidth500 = `https://image.tmdb.org/t/p/w500/`;
     
-    const{ data, isLoaded, error} = useApiSearchById(`person/${id}`);
-
+/*     const{ data, isLoaded, error} = useApiSearchById(`person/${id}`);
+ */    const {data, status } = useQuery(['person', url, categoryPageNumber], async () => {
+        const response = await fetch(`https://api.themoviedb.org/3/${url}?language=en-US&api_key=${import.meta.env.VITE_API_KEY_MOVIESTMDB}`)  
+    
+        return response.json();
+    });     
+    console.log("PERSON",data);
     return (
         <section className={mediaStyles['movie-page-section']}>
-            {!isLoaded  && !error && 
+            {status==='loading' && 
                 <div className={mediaStyles['movie-container']}>
                     <div >
                         <LoadingSpinner />
                     </div>
                 </div>
             }
-            {data && isLoaded &&
+            {status==='success' &&
                 <div className={mediaStyles['movie-container']}>
 
                     {/* LEFT SIDE */}
@@ -52,7 +61,7 @@ const Person = ({}:PersonProps) => {
                                 <div className={mediaStyles['movie-details-container']}>
                                     <h2 className={mediaStyles['detail']}> 
                                     <div  className={mediaStyles['genres-container']}>
-                                        {data.genres?.map((genre) => (
+                                        {data.genres?.map((genre:Genre) => (
                                             <p key={data.id} className={mediaStyles['genre']} >{genre.name}</p>
                                         ))}
                                     </div>
