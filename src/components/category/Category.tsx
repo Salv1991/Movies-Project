@@ -11,6 +11,7 @@ import { CategoryType } from '../../enums/categoryType';
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 import { useQuery } from 'react-query';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+
 //TYPES
 type CategoryProps = {
     url: string;

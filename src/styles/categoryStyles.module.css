@@ -1,6 +1,6 @@
 .category-container {
     width: 100%;
-    max-width: 1600px;
+    max-width: 2000px;
     margin: auto;
     padding-bottom:5px;
     padding: 0px 20px;
@@ -76,7 +76,7 @@ font-weight: bold;
 
 .category-wrapper {
     width: 100%;
-    max-width: 1600px;
+    max-width: 2000px;
     min-height: 1000px;
     margin: auto;
     margin-top: 1rem;
@@ -99,9 +99,9 @@ font-weight: bold;
 
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: start;
-    gap:.7rem;
+    gap:20px;
     flex-wrap: wrap;
 }
 .movies-container a:hover .movie-image {
@@ -112,17 +112,16 @@ font-weight: bold;
 
 .movie-container {
     padding: 10px;
-    flex-basis: 31%;
+    flex-basis: 22%;
     max-width: 650px;
     min-width: 300px;
+    height: 215px;
     background-color:#ebebeb;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 6px;
-    margin-bottom: 10px;
-    margin-right: 20px;
     box-shadow: rgba(61, 61, 61, 0.473) 0px 3px 12px;
 }
 .movie-container:hover {
@@ -147,13 +146,6 @@ p.movie-overview {
     width: 100%;
     
 }
-
-/* .movie-title-container h2 {
-    font-size: clamp(.9rem, 2vw, 1.2rem); 
-    border-left: 4px solid rgb(152, 6, 172);
-    padding: .4rem 1rem;
-    line-clamp: 2; 
-} */
 
 .movie-details {
     width: 100%;
@@ -191,7 +183,7 @@ p.movie-overview {
 }
 
 .movie-title {
-    font-size: clamp(1.3rem, 2vw, 1.6rem); 
+    font-size: clamp(1.3rem, 3vw, 1.6rem); 
     min-height: 30px;
     max-height: 30px;
     overflow: hidden;
@@ -252,7 +244,7 @@ p.movie-overview {
 
 @media (width<1700px){
     .movie-container {
-        flex-basis: 30%;
+        flex-basis: 48%;
     }
 }
 @media (width<1400px){
